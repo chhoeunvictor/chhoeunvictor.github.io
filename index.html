@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Victor Chhoeun — Technical Writer & Content Strategist</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">VC</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+    </ul>
+    <button class="burger" aria-label="Toggle menu" onclick="toggleMenu()">
+      <span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMenu()">About</a>
+    <a href="#work" onclick="toggleMenu()">Work</a>
+    <a href="#writing" onclick="toggleMenu()">Writing</a>
+    <a href="#contact" onclick="toggleMenu()">Get in touch</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">Available for projects</div>
+      <h1 class="hero-title">
+        Victor<br />
+        <em>Chhoeun</em>
+      </h1>
+      <p class="hero-sub">Technical Writer · Content Strategist · UX Writer</p>
+      <p class="hero-desc">
+        I turn complex product ecosystems into clear, user-centered documentation.
+        Based in San Jose — working across mobile and web platforms.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-primary">See my work</a>
+        <a href="#contact" class="btn-ghost">Contact me</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">Scroll ↓</div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner about-grid">
+      <div class="about-left">
+        <span class="section-label">About</span>
+        <h2>Writing that makes<br /><em>products feel simple</em></h2>
+      </div>
+      <div class="about-right">
+        <p>
+          I'm a Content Strategist and Technical Writer based in San Jose. 
+          My work lives at the intersection of user experience and information design — 
+          I specialize in simplifying complex product ecosystems and building 
+          documentation that users actually want to read.
+        </p>
+        <p>
+          Whether it's API docs, UX microcopy, or end-to-end content strategy, 
+          I bring clarity to the places where confusion costs the most.
+        </p>
+        <div class="about-skills">
+          <div class="skill-pill">Technical Writing</div>
+          <div class="skill-pill">Content Strategy</div>
+          <div class="skill-pill">UX Writing</div>
+          <div class="skill-pill">Information Architecture</div>
+          <div class="skill-pill">API Documentation</div>
+          <div class="skill-pill">Style Guides</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK PORTFOLIO -->
+  <section id="work">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Work Portfolio</span>
+        <h2>Selected projects</h2>
+      </div>
+      <div class="work-grid">
+
+        <article class="work-card work-card--featured">
+          <div class="work-card-meta">
+            <span class="work-tag">Technical Writing</span>
+            <span class="work-year">2024</span>
+          </div>
+          <h3>API Documentation Suite</h3>
+          <p>End-to-end documentation for a developer-facing API product — including reference docs, quickstart guides, and SDK tutorials across three platforms.</p>
+          <div class="work-card-footer">
+            <span class="work-outcome">↑ 40% reduction in support tickets</span>
+            <a href="#" class="work-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card-meta">
+            <span class="work-tag">Content Strategy</span>
+            <span class="work-year">2024</span>
+          </div>
+          <h3>Product Documentation Revamp</h3>
+          <p>Restructured an existing help center across 200+ articles to improve findability and reduce time-to-answer for end users.</p>
+          <div class="work-card-footer">
+            <a href="#" class="work-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card-meta">
+            <span class="work-tag">UX Writing</span>
+            <span class="work-year">2023</span>
+          </div>
+          <h3>Mobile Onboarding Copy</h3>
+          <p>UX copy for a mobile app's onboarding flow — tooltips, empty states, error messages, and in-app guidance.</p>
+          <div class="work-card-footer">
+            <a href="#" class="work-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card-meta">
+            <span class="work-tag">Style Guide</span>
+            <span class="work-year">2023</span>
+          </div>
+          <h3>Voice & Tone Style Guide</h3>
+          <p>Company-wide writing guidelines covering brand voice, terminology standards, and editorial principles for a SaaS product team.</p>
+          <div class="work-card-footer">
+            <a href="#" class="work-link">View project →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WRITING SAMPLES -->
+  <section id="writing">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Writing Samples</span>
+        <h2>Published work</h2>
+      </div>
+      <div class="writing-list">
+
+        <a href="#" class="writing-item">
+          <div class="writing-item-left">
+            <span class="writing-type">Tutorial</span>
+            <h4>Getting Started with REST APIs: A Developer's First Guide</h4>
+          </div>
+          <div class="writing-item-right">
+            <span class="writing-read">8 min read</span>
+            <span class="writing-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="#" class="writing-item">
+          <div class="writing-item-left">
+            <span class="writing-type">UX Copy</span>
+            <h4>Writing Error Messages That Actually Help Users</h4>
+          </div>
+          <div class="writing-item-right">
+            <span class="writing-read">5 min read</span>
+            <span class="writing-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="#" class="writing-item">
+          <div class="writing-item-left">
+            <span class="writing-type">Case Study</span>
+            <h4>How We Cut Support Volume 40% with Better Documentation</h4>
+          </div>
+          <div class="writing-item-right">
+            <span class="writing-read">12 min read</span>
+            <span class="writing-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="#" class="writing-item">
+          <div class="writing-item-left">
+            <span class="writing-type">Reference</span>
+            <h4>Information Architecture Patterns for Help Centers</h4>
+          </div>
+          <div class="writing-item-right">
+            <span class="writing-read">10 min read</span>
+            <span class="writing-arrow">↗</span>
+          </div>
+        </a>
+
+        <a href="#" class="writing-item">
+          <div class="writing-item-left">
+            <span class="writing-type">Guide</span>
+            <h4>Building a Content Style Guide from Scratch</h4>
+          </div>
+          <div class="writing-item-right">
+            <span class="writing-read">7 min read</span>
+            <span class="writing-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner contact-inner">
+      <span class="section-label">Contact</span>
+      <h2>Let's work<br /><em>together</em></h2>
+      <p class="contact-desc">
+        I'm open to freelance projects, contract roles, and full-time opportunities.
+        Reach out and let's talk.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:chhoeun.victor@gmail.com" class="contact-link contact-link--email">
+          <span class="contact-link-label">Email</span>
+          chhoeun.victor@gmail.com
+        </a>
+        <a href="https://www.linkedin.com/in/victor-chhoeun-97600714b/" target="_blank" class="contact-link">
+          <span class="contact-link-label">LinkedIn</span>
+          linkedin.com/in/victor-chhoeun
+        </a>
+        <a href="tel:4083246765" class="contact-link">
+          <span class="contact-link-label">Phone</span>
+          (408) 324-6765
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Victor Chhoeun</span>
+    <span>San Jose, CA</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

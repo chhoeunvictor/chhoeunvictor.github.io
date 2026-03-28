@@ -43,7 +43,7 @@
       </h1>
       <p class="hero-sub">Based in San Jose, California</p>
       <p class="hero-desc">
-       Technical Writer. Content Strategist. AI-forward thinker. I make complex products feel simple—and simple products feel essential.
+        Technical Writer. Content Strategist. AI-forward thinker. I make complex products feel simple—and simple products feel essential.
       </p>
       <div class="hero-actions">
         <a href="#work" class="btn-primary">See my work</a>
@@ -61,10 +61,9 @@
         <h2>Writing that makes<br /><em>products feel simple</em></h2>
       </div>
       <div class="about-right">
-        <p>Content isn’t just words—it’s how people understand, trust, and move through a product. From documentation architecture to product voice, I treat every touchpoint as part of a connected system.
-</p>
-        <p>I design content ecosystems that are clear, scalable, and human. Whether it’s simplifying complex technical concepts, shaping UX flows, or building governance at scale, my goal is always the same: make the experience intuitive and cohesive.</p>
-        <p>I operate within AI-forward workflows to scale content creation, streamline systems, and maintain consistency across complex surfaces—moving quickly while keeping content intentional and high quality. The goal isn’t just to ship content—it’s to make it work.</p>
+        <p>Content isn't just words—it's how people understand, trust, and move through a product. From documentation architecture to product voice, I treat every touchpoint as part of a connected system.</p>
+        <p>I design content ecosystems that are clear, scalable, and human. Whether it's simplifying complex technical concepts, shaping UX flows, or building governance at scale, my goal is always the same: make the experience intuitive and cohesive.</p>
+        <p>I operate within AI-forward workflows to scale content creation, streamline systems, and maintain consistency across complex surfaces—moving quickly while keeping content intentional and high quality. The goal isn't just to ship content—it's to make it work.</p>
         <div class="about-skills">
           <div class="skill-pill">Technical Writing</div>
           <div class="skill-pill">Content Strategy</div>
@@ -85,38 +84,112 @@
         <span class="section-label">Case Studies</span>
         <h2>Selected projects</h2>
       </div>
-      <div class="work-grid">
 
-          <!-- MESSENGER CASE STUDY CARD -->
+      <!-- Featured card is outside the clipped grid so expand isn't hidden -->
+      <div class="work-featured-wrapper">
         <article class="work-card work-card--featured" id="messenger-card">
           <div class="work-card-meta">
-            <span class="work-tag">Technical Writing</span>
-            <span class="work-tag" style="margin-left:0.35rem;">Content Strategy</span>
+            <div style="display:flex;gap:0.75rem;align-items:center;">
+              <span class="work-tag">Technical Writing</span>
+              <span class="work-tag">Content Strategy</span>
+            </div>
             <span class="work-year">Meta · 2024</span>
           </div>
           <h3>Messenger End-to-End Encryption Documentation</h3>
           <p>Led Help Center documentation for Meta's E2EE rollout on Messenger — translating complex cryptographic concepts into accessible guidance for a global audience of 1B+ users, shipped in 3 weeks across 104 languages.</p>
           <div class="work-card-footer">
             <span class="work-outcome">↗ 104 languages · 1B+ users · 3-week ship</span>
-            <button class="work-link work-link--toggle" onclick="toggleCaseStudy()" aria-expanded="false" aria-controls="messenger-expand">
+            <button class="work-link cs-toggle-btn" id="cs-toggle" onclick="toggleCaseStudy()">
               Read case study →
             </button>
           </div>
         </article>
 
-        <article class="work-card work-card--featured">
-          <div class="work-card-meta">
-            <span class="work-tag">Technical Writing</span>
-            <span class="work-year">2024</span>
-          </div>
-          <h3>API Documentation Suite</h3>
-          <p>End-to-end documentation for a developer-facing API product — including reference docs, quickstart guides, and SDK tutorials across three platforms.</p>
-          <div class="work-card-footer">
-            <span class="work-outcome">↑ 40% reduction in support tickets</span>
-            <a href="#" class="work-link">View project →</a>
-          </div>
-        </article>
+        <!-- Expand panel lives here, not inside the grid -->
+        <div class="case-study-expand" id="messenger-expand">
+          <div class="case-study-body">
+            <button class="case-study-close" onclick="toggleCaseStudy()" aria-label="Close">✕</button>
 
+            <div class="cs-header">
+              <div class="cs-meta-row">
+                <span class="cs-meta-pill">Technical Writing</span>
+                <span class="cs-meta-pill">Content Strategy</span>
+                <span class="cs-meta-pill">Meta · 2024</span>
+                <span class="cs-meta-pill">Solo project</span>
+                <span class="cs-meta-pill">~3 weeks</span>
+                <span class="cs-meta-pill">104 languages</span>
+              </div>
+              <h3 class="cs-title">Messenger End-to-End<br />Encryption Documentation</h3>
+              <p class="cs-overview">When Meta rolled out end-to-end encryption across Facebook Messenger, it marked one of the platform's most significant privacy shifts. I owned the Help Center documentation for this feature — from research and stakeholder alignment to final publishing — making complex cryptographic concepts accessible to a global, non-technical audience at scale.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">The Problem</div>
+              <p>Encryption is inherently technical. For a platform with over a billion active users, that creates a real content challenge: how do you explain a security architecture accurately enough to satisfy legal and engineering, while keeping it simple enough that everyday users understand what changed and why it matters?</p>
+              <p>Without clear documentation, users risked misunderstanding what E2EE protected, whether Meta could still read their messages, and how encryption behaved across devices — all questions that directly affect trust.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">My Role</div>
+              <p>I was the primary writer on this project, operating as both content strategist and technical writer. That meant I wasn't just writing — I was making structural and editorial decisions about what to prioritize, what to cut, and how to frame concepts that engineers and lawyers couldn't agree on.</p>
+              <p>I worked within Meta's existing Help Center architecture to ensure the article felt native and consistent with the broader content ecosystem, while still solving for the specific complexity this feature introduced.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">The Challenge — Legal vs. Engineering</div>
+              <p>The most significant obstacle wasn't the writing — it was the stakeholders.</p>
+              <p>Legal wanted tight, constrained language to avoid overpromising on privacy protections. Engineering and product wanted comprehensive explanations that covered every technical edge case. Both had legitimate reasons. Neither version would have worked for users.</p>
+              <p>I acted as the content mediator — facilitating conversations between both teams, translating their concerns into content decisions, and drafting language that was accurate without being alarming, thorough without being overwhelming. That negotiation shaped the final structure of the article as much as any writing decision did.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">Approach</div>
+              <ul class="cs-list">
+                <li><strong>Research first.</strong> Reviewed internal product specs and engineering documentation to build a working understanding of how Messenger's encryption protocol functioned before writing a word of user-facing content.</li>
+                <li><strong>Structure for scanning.</strong> Help Center users are in problem-solving mode. I organized the article to answer the most common questions first so users could quickly find what they needed.</li>
+                <li><strong>Simplify without dumbing down.</strong> Translated technical accuracy into plain language — explaining device keys, what Meta can and can't access, and cross-device behavior — without losing the substance that made the content trustworthy.</li>
+              </ul>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">Results</div>
+              <div class="cs-results-grid">
+                <div class="cs-result-card">
+                  <div class="cs-result-number">1B+</div>
+                  <div class="cs-result-label">Active Messenger users reached globally</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">104</div>
+                  <div class="cs-result-label">Languages the article was localized into</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">~3 wks</div>
+                  <div class="cs-result-label">End-to-end ship time from brief to publish</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">2 teams</div>
+                  <div class="cs-result-label">Legal & engineering stakeholders aligned</div>
+                </div>
+              </div>
+              <a href="https://www.facebook.com/help/messenger-app/786613221989782" target="_blank" class="cs-cta">Read the published article ↗</a>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- /work-featured-wrapper -->
+
+      <!-- Regular 2-col grid for remaining cards -->
+      <div class="work-grid">
         <article class="work-card">
           <div class="work-card-meta">
             <span class="work-tag">Content Strategy</span>
@@ -124,6 +197,18 @@
           </div>
           <h3>Product Documentation Revamp</h3>
           <p>Restructured an existing help center across 200+ articles to improve findability and reduce time-to-answer for end users.</p>
+          <div class="work-card-footer">
+            <a href="#" class="work-link">View project →</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <div class="work-card-meta">
+            <span class="work-tag">UX Writing</span>
+            <span class="work-year">2023</span>
+          </div>
+          <h3>Mobile Onboarding Copy</h3>
+          <p>UX copy for a mobile app's onboarding flow — tooltips, empty states, error messages, and in-app guidance.</p>
           <div class="work-card-footer">
             <a href="#" class="work-link">View project →</a>
           </div>
@@ -140,8 +225,8 @@
             <a href="#" class="work-link">View project →</a>
           </div>
         </article>
-
       </div>
+
     </div>
   </section>
 
@@ -246,5 +331,23 @@
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    function toggleCaseStudy() {
+      const expand = document.getElementById('messenger-expand');
+      const btn = document.getElementById('cs-toggle');
+      const isOpen = expand.classList.contains('is-open');
+
+      if (isOpen) {
+        expand.classList.remove('is-open');
+        btn.textContent = 'Read case study →';
+      } else {
+        expand.classList.add('is-open');
+        btn.textContent = 'Close ↑';
+        setTimeout(() => {
+          document.getElementById('messenger-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    }
+  </script>
 </body>
 </html>

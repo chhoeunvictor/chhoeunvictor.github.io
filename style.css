@@ -909,3 +909,19 @@ footer {
   .case-study-body { padding: 1.75rem 1.25rem; }
   .cs-results-grid { grid-template-columns: 1fr 1fr; }
 }
+/* --- CSS added to resize the IG and Maps cards to match the e2ee case study ----*/
+.work-grid {
+  align-items: start;
+}
+
+.work-card {
+  height: 100%;
+}
+
+.case-study-expand--grid {
+  display: none;
+}
+
+.case-study-expand--grid.is-open {
+  display: block;
+}

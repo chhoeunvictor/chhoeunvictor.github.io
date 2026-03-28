@@ -374,13 +374,21 @@ h2 em { color: var(--accent); }
 /* ─── WORK ──────────────────────────────────────────── */
 #work { background: var(--bg); }
 
-.work-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5px;
+/* Stack of full-width equal cards */
+.work-stack {
+  display: flex;
+  flex-direction: column;
   border: 1.5px solid var(--line);
-  border-radius: 0 0 12px 12px;
+  border-radius: 12px;
   overflow: hidden;
+}
+
+.work-featured-wrapper {
+  border-bottom: 1.5px solid var(--line);
+}
+
+.work-featured-wrapper--last {
+  border-bottom: none;
 }
 
 .work-card {
@@ -390,10 +398,15 @@ h2 em { color: var(--accent); }
   flex-direction: column;
   gap: 1rem;
   transition: background 0.25s;
-  cursor: default;
 }
 
 .work-card:hover { background: var(--bg3); }
+
+.work-card--featured {
+  border-radius: 0;
+  border: none;
+  width: 100%;
+}
 
 .work-card-meta {
   display: flex;
@@ -480,10 +493,7 @@ h2 em { color: var(--accent); }
 }
 
 .writing-item:last-child { border-bottom: none; }
-
-.writing-item:hover {
-  background: var(--bg3);
-}
+.writing-item:hover { background: var(--bg3); }
 
 .writing-item-left {
   display: flex;
@@ -539,18 +549,14 @@ h2 em { color: var(--accent); }
   align-items: center;
 }
 
-.contact-inner {
-  text-align: center;
-}
+.contact-inner { text-align: center; }
 
 .contact-inner .section-label {
   display: block;
   margin-bottom: 1.25rem;
 }
 
-.contact-inner h2 {
-  margin-bottom: 1.5rem;
-}
+.contact-inner h2 { margin-bottom: 1.5rem; }
 
 .contact-desc {
   max-width: 400px;
@@ -603,7 +609,6 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 1.75rem var(--pad);
-  max-width: 100%;
   border-top: 1px solid var(--line);
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -636,70 +641,7 @@ footer {
 }
 
 
-/* ─── RESPONSIVE ────────────────────────────────────── */
-@media (max-width: 900px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-
-  .work-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-links { display: none; }
-  .burger { display: flex; }
-}
-
-@media (max-width: 600px) {
-  .hero-title { line-height: 0.88; }
-
-  .writing-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .contact-link {
-    min-width: auto;
-    width: 100%;
-  }
-
-  footer {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
-  }
-}
-
-
 /* ─── CASE STUDY EXPAND ─────────────────────────────── */
-
-.work-featured-wrapper {
-  margin-bottom: 0;
-}
-
-.work-featured-wrapper .work-card--featured {
-  border-radius: 12px 12px 0 0;
-  border: 1.5px solid var(--line);
-  border-bottom: 1.5px solid var(--line);
-  background: var(--bg2);
-  padding: 2.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  transition: background 0.25s;
-}
-
-.work-featured-wrapper .work-card--featured:hover {
-  background: var(--bg3);
-}
-
-.work-featured-wrapper + .work-grid {
-  border-radius: 0 0 12px 12px;
-  border-top: none;
-}
-
 .case-study-expand {
   max-height: 0;
   overflow: hidden;
@@ -715,8 +657,7 @@ footer {
 
 .case-study-body {
   background: var(--bg2);
-  border: 1.5px solid var(--line);
-  border-top: none;
+  border-top: 1.5px solid var(--line);
   padding: 3rem;
   position: relative;
 }
@@ -900,51 +841,28 @@ footer {
 
 .cs-toggle-btn:hover { letter-spacing: 0.14em; }
 
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
 @media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .nav-links { display: none; }
+  .burger { display: flex; }
   .cs-results-grid { grid-template-columns: 1fr 1fr; }
-  .work-featured-wrapper .work-card--featured { border-radius: 12px 12px 0 0; }
 }
 
 @media (max-width: 600px) {
+  .hero-title { line-height: 0.88; }
+
+  .writing-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .contact-link { min-width: auto; width: 100%; }
+
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+
   .case-study-body { padding: 1.75rem 1.25rem; }
   .cs-results-grid { grid-template-columns: 1fr 1fr; }
-}
-/* --- CSS added to resize the IG and Maps cards to match the e2ee case study ----*/
-.work-grid {
-  align-items: start;
-}
-
-.work-card {
-  height: 100%;
-}
-
-.case-study-expand--grid {
-  display: none;
-}
-
-.case-study-expand--grid.is-open {
-  display: block;
-}
-
-/* ── WORK STACK (all cards equal full-width) ── */
-.work-stack {
-  display: flex;
-  flex-direction: column;
-  border: 1.5px solid var(--line);
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.work-stack .work-featured-wrapper {
-  margin-bottom: 0;
-  border-bottom: 1.5px solid var(--line);
-}
-
-.work-stack .work-featured-wrapper--last {
-  border-bottom: none;
-}
-
-.work-stack .work-card--featured {
-  border-radius: 0;
-  border: none;
 }

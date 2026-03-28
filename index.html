@@ -83,316 +83,317 @@
         <h2>Selected projects</h2>
       </div>
 
-      <!-- MESSENGER — featured card outside clipped grid -->
-      <div class="work-featured-wrapper">
-        <article class="work-card work-card--featured" id="messenger-card">
-          <div class="work-card-meta">
-            <div style="display:flex;gap:0.75rem;align-items:center;">
-              <span class="work-tag">Technical Writing</span>
-              <span class="work-tag">Content Strategy</span>
-            </div>
-            <span class="work-year">Meta · 2025</span>
-          </div>
-          <h3>Messenger End-to-End Encryption Documentation</h3>
-          <p>Led Help Center documentation for Meta's E2EE rollout on Messenger — translating complex cryptographic concepts into accessible guidance for a global audience of 1B+ users, shipped in 3 weeks across 104 languages.</p>
-          <div class="work-card-footer">
-            <span class="work-outcome">↗ 104 languages · 1B+ users · 3-week ship</span>
-            <button class="work-link cs-toggle-btn" id="messenger-toggle" onclick="toggleCaseStudy('messenger')">
-              Read case study →
-            </button>
-          </div>
-        </article>
+      <!-- All three cards use the same work-featured-wrapper pattern -->
+      <div class="work-stack">
 
-        <div class="case-study-expand" id="messenger-expand">
-          <div class="case-study-body">
-            <button class="case-study-close" onclick="toggleCaseStudy('messenger')" aria-label="Close">✕</button>
-
-            <div class="cs-header">
-              <div class="cs-meta-row">
-                <span class="cs-meta-pill">Technical Writing</span>
-                <span class="cs-meta-pill">Content Strategy</span>
-                <span class="cs-meta-pill">Meta · 2024</span>
-                <span class="cs-meta-pill">Solo project</span>
-                <span class="cs-meta-pill">~3 weeks</span>
-                <span class="cs-meta-pill">104 languages</span>
+        <!-- MESSENGER -->
+        <div class="work-featured-wrapper">
+          <article class="work-card work-card--featured" id="messenger-card">
+            <div class="work-card-meta">
+              <div style="display:flex;gap:0.75rem;align-items:center;">
+                <span class="work-tag">Technical Writing</span>
+                <span class="work-tag">Content Strategy</span>
               </div>
-              <h3 class="cs-title">Messenger End-to-End<br />Encryption Documentation</h3>
-              <p class="cs-overview">When Meta rolled out end-to-end encryption across Facebook Messenger, it marked one of the platform's most significant privacy shifts. I owned the Help Center documentation for this feature — from research and stakeholder alignment to final publishing — making complex cryptographic concepts accessible to a global, non-technical audience at scale.</p>
+              <span class="work-year">Meta · 2024</span>
             </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Problem</div>
-              <p>Encryption is inherently technical. For a platform with over a billion active users, that creates a real content challenge: how do you explain a security architecture accurately enough to satisfy legal and engineering, while keeping it simple enough that everyday users understand what changed and why it matters?</p>
-              <p>Without clear documentation, users risked misunderstanding what E2EE protected, whether Meta could still read their messages, and how encryption behaved across devices — all questions that directly affect trust.</p>
+            <h3>Messenger End-to-End Encryption Documentation</h3>
+            <p>Led Help Center documentation for Meta's E2EE rollout on Messenger — translating complex cryptographic concepts into accessible guidance for a global audience of 1B+ users, shipped in 3 weeks across 104 languages.</p>
+            <div class="work-card-footer">
+              <span class="work-outcome">↗ 104 languages · 1B+ users · 3-week ship</span>
+              <button class="work-link cs-toggle-btn" id="messenger-toggle" onclick="toggleCaseStudy('messenger')">
+                Read case study →
+              </button>
             </div>
+          </article>
 
-            <hr class="cs-divider" />
+          <div class="case-study-expand" id="messenger-expand">
+            <div class="case-study-body">
+              <button class="case-study-close" onclick="toggleCaseStudy('messenger')" aria-label="Close">✕</button>
 
-            <div class="cs-section">
-              <div class="cs-section-label">My Role</div>
-              <p>I was the primary writer on this project, operating as both content strategist and technical writer. That meant I wasn't just writing — I was making structural and editorial decisions about what to prioritize, what to cut, and how to frame concepts that engineers and lawyers couldn't agree on.</p>
-              <p>I worked within Meta's existing Help Center architecture to ensure the article felt native and consistent with the broader content ecosystem, while still solving for the specific complexity this feature introduced.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Challenge — Legal vs. Engineering</div>
-              <p>The most significant obstacle wasn't the writing — it was the stakeholders.</p>
-              <p>Legal wanted tight, constrained language to avoid overpromising on privacy protections. Engineering and product wanted comprehensive explanations that covered every technical edge case. Both had legitimate reasons. Neither version would have worked for users.</p>
-              <p>I acted as the content mediator — facilitating conversations between both teams, translating their concerns into content decisions, and drafting language that was accurate without being alarming, thorough without being overwhelming. That negotiation shaped the final structure of the article as much as any writing decision did.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Approach</div>
-              <ul class="cs-list">
-                <li><strong>Research first.</strong> Reviewed internal product specs and engineering documentation to build a working understanding of how Messenger's encryption protocol functioned before writing a word of user-facing content.</li>
-                <li><strong>Structure for scanning.</strong> Help Center users are in problem-solving mode. I organized the article to answer the most common questions first so users could quickly find what they needed.</li>
-                <li><strong>Simplify without dumbing down.</strong> Translated technical accuracy into plain language — explaining device keys, what Meta can and can't access, and cross-device behavior — without losing the substance that made the content trustworthy.</li>
-              </ul>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Results</div>
-              <div class="cs-results-grid">
-                <div class="cs-result-card">
-                  <div class="cs-result-number">1B+</div>
-                  <div class="cs-result-label">Active Messenger users reached globally</div>
+              <div class="cs-header">
+                <div class="cs-meta-row">
+                  <span class="cs-meta-pill">Technical Writing</span>
+                  <span class="cs-meta-pill">Content Strategy</span>
+                  <span class="cs-meta-pill">Meta · 2024</span>
+                  <span class="cs-meta-pill">Solo project</span>
+                  <span class="cs-meta-pill">~3 weeks</span>
+                  <span class="cs-meta-pill">104 languages</span>
                 </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">104</div>
-                  <div class="cs-result-label">Languages the article was localized into</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">~3 wks</div>
-                  <div class="cs-result-label">End-to-end ship time from brief to publish</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">2 teams</div>
-                  <div class="cs-result-label">Legal & engineering stakeholders aligned</div>
-                </div>
+                <h3 class="cs-title">Messenger End-to-End<br />Encryption Documentation</h3>
+                <p class="cs-overview">When Meta rolled out end-to-end encryption across Facebook Messenger, it marked one of the platform's most significant privacy shifts. I owned the Help Center documentation for this feature — from research and stakeholder alignment to final publishing — making complex cryptographic concepts accessible to a global, non-technical audience at scale.</p>
               </div>
-              <a href="https://www.facebook.com/help/messenger-app/786613221989782" target="_blank" class="cs-cta">Read the published article ↗</a>
-            </div>
 
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Problem</div>
+                <p>Encryption is inherently technical. For a platform with over a billion active users, that creates a real content challenge: how do you explain a security architecture accurately enough to satisfy legal and engineering, while keeping it simple enough that everyday users understand what changed and why it matters?</p>
+                <p>Without clear documentation, users risked misunderstanding what E2EE protected, whether Meta could still read their messages, and how encryption behaved across devices — all questions that directly affect trust.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">My Role</div>
+                <p>I was the primary writer on this project, operating as both content strategist and technical writer. That meant I wasn't just writing — I was making structural and editorial decisions about what to prioritize, what to cut, and how to frame concepts that engineers and lawyers couldn't agree on.</p>
+                <p>I worked within Meta's existing Help Center architecture to ensure the article felt native and consistent with the broader content ecosystem, while still solving for the specific complexity this feature introduced.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Challenge — Legal vs. Engineering</div>
+                <p>The most significant obstacle wasn't the writing — it was the stakeholders.</p>
+                <p>Legal wanted tight, constrained language to avoid overpromising on privacy protections. Engineering and product wanted comprehensive explanations that covered every technical edge case. Both had legitimate reasons. Neither version would have worked for users.</p>
+                <p>I acted as the content mediator — facilitating conversations between both teams, translating their concerns into content decisions, and drafting language that was accurate without being alarming, thorough without being overwhelming. That negotiation shaped the final structure of the article as much as any writing decision did.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Approach</div>
+                <ul class="cs-list">
+                  <li><strong>Research first.</strong> Reviewed internal product specs and engineering documentation to build a working understanding of how Messenger's encryption protocol functioned before writing a word of user-facing content.</li>
+                  <li><strong>Structure for scanning.</strong> Help Center users are in problem-solving mode. I organized the article to answer the most common questions first so users could quickly find what they needed.</li>
+                  <li><strong>Simplify without dumbing down.</strong> Translated technical accuracy into plain language — explaining device keys, what Meta can and can't access, and cross-device behavior — without losing the substance that made the content trustworthy.</li>
+                </ul>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Results</div>
+                <div class="cs-results-grid">
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">1B+</div>
+                    <div class="cs-result-label">Active Messenger users reached globally</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">104</div>
+                    <div class="cs-result-label">Languages the article was localized into</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">~3 wks</div>
+                    <div class="cs-result-label">End-to-end ship time from brief to publish</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">2 teams</div>
+                    <div class="cs-result-label">Legal & engineering stakeholders aligned</div>
+                  </div>
+                </div>
+                <a href="https://www.facebook.com/help/messenger-app/786613221989782" target="_blank" class="cs-cta">Read the published article ↗</a>
+              </div>
+
+            </div>
           </div>
         </div>
-      </div><!-- /messenger wrapper -->
-
-      <!-- REGULAR CARDS GRID -->
-      <div class="work-grid" id="work-grid">
 
         <!-- INSTAGRAM -->
-        <article class="work-card" id="instagram-card">
-          <div class="work-card-meta">
-            <div style="display:flex;gap:0.75rem;align-items:center;">
-              <span class="work-tag">UX Writing</span>
-              <span class="work-tag">Content Strategy</span>
-            </div>
-            <span class="work-year">Meta · 2025</span>
-          </div>
-          <h3>AI Image & Video Generation on Instagram</h3>
-          <p>Sole writer for Meta's confidential AI generation feature launch on Instagram — making non-deterministic AI feel natural and usable for 2B+ users, shipped in under 2 weeks.</p>
-          <div class="work-card-footer">
-            <span class="work-outcome">↗ ~107 languages · 2B+ users · &lt;2-week ship</span>
-            <button class="work-link cs-toggle-btn" id="instagram-toggle" onclick="toggleCaseStudy('instagram')">
-              Read case study →
-            </button>
-          </div>
-        </article>
-
-        <div class="case-study-expand case-study-expand--grid" id="instagram-expand">
-          <div class="case-study-body">
-            <button class="case-study-close" onclick="toggleCaseStudy('instagram')" aria-label="Close">✕</button>
-
-            <div class="cs-header">
-              <div class="cs-meta-row">
-                <span class="cs-meta-pill">UX Writing</span>
-                <span class="cs-meta-pill">Content Strategy</span>
-                <span class="cs-meta-pill">Meta · 2024</span>
-                <span class="cs-meta-pill">Solo project</span>
-                <span class="cs-meta-pill">&lt;2 weeks</span>
-                <span class="cs-meta-pill">~104–110 languages</span>
+        <div class="work-featured-wrapper">
+          <article class="work-card work-card--featured" id="instagram-card">
+            <div class="work-card-meta">
+              <div style="display:flex;gap:0.75rem;align-items:center;">
+                <span class="work-tag">UX Writing</span>
+                <span class="work-tag">Content Strategy</span>
               </div>
-              <h3 class="cs-title">AI Image & Video Generation<br />on Instagram</h3>
-              <p class="cs-overview">When Meta launched AI image and video generation inside Instagram chats, it was one of the most significant feature rollouts across the entire Meta AI initiative — quietly shipped across every major Meta platform simultaneously. I was one of a small number of select content strategists cleared to work on it, and I owned the Instagram Help Center documentation end-to-end.</p>
+              <span class="work-year">Meta · 2024</span>
             </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Problem</div>
-              <p>AI generation is invisible and non-deterministic — users can't see how it works, and results aren't guaranteed. That creates a unique content challenge: how do you make something unpredictable feel usable?</p>
-              <p>For a feature built around open-ended prompting, the wrong documentation could leave users confused, frustrated, or mistrustful of the feature entirely. Too technical and users disengage. Too vague and they don't know where to start.</p>
+            <h3>AI Image & Video Generation on Instagram</h3>
+            <p>Sole writer for Meta's confidential AI generation feature launch on Instagram — making non-deterministic AI feel natural and usable for 2B+ users, shipped in under 2 weeks.</p>
+            <div class="work-card-footer">
+              <span class="work-outcome">↗ ~107 languages · 2B+ users · &lt;2-week ship</span>
+              <button class="work-link cs-toggle-btn" id="instagram-toggle" onclick="toggleCaseStudy('instagram')">
+                Read case study →
+              </button>
             </div>
+          </article>
 
-            <hr class="cs-divider" />
+          <div class="case-study-expand" id="instagram-expand">
+            <div class="case-study-body">
+              <button class="case-study-close" onclick="toggleCaseStudy('instagram')" aria-label="Close">✕</button>
 
-            <div class="cs-section">
-              <div class="cs-section-label">My Role</div>
-              <p>I was the sole writer on this project, operating under tight confidentiality constraints as part of a restricted launch team. Beyond writing, I made deliberate structural and framing decisions about how to introduce prompting — a new interaction model — to a mainstream, non-technical audience without ever making them feel like they needed to understand AI to use it.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Challenge — Making the Invisible Feel Natural</div>
-              <p>The hardest part wasn't explaining the feature — it was deciding what <em>not</em> to explain.</p>
-              <p>Engineering wanted to document the backend logic. Legal and AI safety required coverage of terms of service, privacy implications, and content restrictions. Both were legitimate needs, and both had the potential to make the article feel clinical or intimidating.</p>
-              <p>My solution: I contained the compliance content in a clearly delineated notes section, keeping it present without letting it dominate the user experience. Then I stripped the article of all technical framing and rebuilt it around user intent.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Approach</div>
-              <ul class="cs-list">
-                <li><strong>Frame around intent, not mechanics.</strong> Rather than explaining how AI generation works, I anchored every instruction in what the user is trying to accomplish — get an image, send it, try something different.</li>
-                <li><strong>Use familiar language.</strong> Words like "ask" and "describe" lowered the cognitive barrier to prompting without requiring any explanation of what a prompt actually is.</li>
-                <li><strong>Hide the complexity.</strong> Compliance and legal requirements were real — but users didn't need to lead with them. Task-based content came first; fine print lived in a clearly labeled section.</li>
-                <li><strong>Design for iteration.</strong> AI outputs vary. Instead of warning users about this, I built the guidance to naturally encourage trying again — making variability feel like a feature, not a flaw.</li>
-              </ul>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Results</div>
-              <div class="cs-results-grid">
-                <div class="cs-result-card">
-                  <div class="cs-result-number">2B+</div>
-                  <div class="cs-result-label">Active Instagram users reached globally</div>
+              <div class="cs-header">
+                <div class="cs-meta-row">
+                  <span class="cs-meta-pill">UX Writing</span>
+                  <span class="cs-meta-pill">Content Strategy</span>
+                  <span class="cs-meta-pill">Meta · 2024</span>
+                  <span class="cs-meta-pill">Solo project</span>
+                  <span class="cs-meta-pill">&lt;2 weeks</span>
+                  <span class="cs-meta-pill">~104–110 languages</span>
                 </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">~107</div>
-                  <div class="cs-result-label">Languages the article was localized into</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">&lt;2 wks</div>
-                  <div class="cs-result-label">Urgent end-to-end ship time</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">Select</div>
-                  <div class="cs-result-label">One of few writers cleared for confidential Meta AI launch</div>
-                </div>
+                <h3 class="cs-title">AI Image & Video Generation<br />on Instagram</h3>
+                <p class="cs-overview">When Meta launched AI image and video generation inside Instagram chats, it was one of the most significant feature rollouts across the entire Meta AI initiative — quietly shipped across every major Meta platform simultaneously. I was one of a small number of select content strategists cleared to work on it, and I owned the Instagram Help Center documentation end-to-end.</p>
               </div>
-              <a href="https://help.instagram.com/7744760808909238" target="_blank" class="cs-cta">Read the published article ↗</a>
-            </div>
 
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Problem</div>
+                <p>AI generation is invisible and non-deterministic — users can't see how it works, and results aren't guaranteed. That creates a unique content challenge: how do you make something unpredictable feel usable?</p>
+                <p>For a feature built around open-ended prompting, the wrong documentation could leave users confused, frustrated, or mistrustful of the feature entirely. Too technical and users disengage. Too vague and they don't know where to start.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">My Role</div>
+                <p>I was the sole writer on this project, operating under tight confidentiality constraints as part of a restricted launch team. Beyond writing, I made deliberate structural and framing decisions about how to introduce prompting — a new interaction model — to a mainstream, non-technical audience without ever making them feel like they needed to understand AI to use it.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Challenge — Making the Invisible Feel Natural</div>
+                <p>The hardest part wasn't explaining the feature — it was deciding what <em>not</em> to explain.</p>
+                <p>Engineering wanted to document the backend logic. Legal and AI safety required coverage of terms of service, privacy implications, and content restrictions. Both were legitimate needs, and both had the potential to make the article feel clinical or intimidating.</p>
+                <p>My solution: I contained the compliance content in a clearly delineated notes section, keeping it present without letting it dominate the user experience. Then I stripped the article of all technical framing and rebuilt it around user intent.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Approach</div>
+                <ul class="cs-list">
+                  <li><strong>Frame around intent, not mechanics.</strong> Rather than explaining how AI generation works, I anchored every instruction in what the user is trying to accomplish — get an image, send it, try something different.</li>
+                  <li><strong>Use familiar language.</strong> Words like "ask" and "describe" lowered the cognitive barrier to prompting without requiring any explanation of what a prompt actually is.</li>
+                  <li><strong>Hide the complexity.</strong> Compliance and legal requirements were real — but users didn't need to lead with them. Task-based content came first; fine print lived in a clearly labeled section.</li>
+                  <li><strong>Design for iteration.</strong> AI outputs vary. Instead of warning users about this, I built the guidance to naturally encourage trying again — making variability feel like a feature, not a flaw.</li>
+                </ul>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Results</div>
+                <div class="cs-results-grid">
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">2B+</div>
+                    <div class="cs-result-label">Active Instagram users reached globally</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">~107</div>
+                    <div class="cs-result-label">Languages the article was localized into</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">&lt;2 wks</div>
+                    <div class="cs-result-label">Urgent end-to-end ship time</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">Select</div>
+                    <div class="cs-result-label">One of few writers cleared for confidential Meta AI launch</div>
+                  </div>
+                </div>
+                <a href="https://help.instagram.com/7744760808909238" target="_blank" class="cs-cta">Read the published article ↗</a>
+              </div>
+
+            </div>
           </div>
         </div>
 
         <!-- GOOGLE MAPS -->
-        <article class="work-card" id="googlemaps-card">
-          <div class="work-card-meta">
-            <div style="display:flex;gap:0.75rem;align-items:center;">
-              <span class="work-tag">Technical Writing</span>
-              <span class="work-tag">Content Strategy</span>
-            </div>
-            <span class="work-year">Google · 2022</span>
-          </div>
-          <h3>Improving Location Accuracy Guidance in Google Maps</h3>
-          <p>Full revamp of an outdated, inaccurate Help Center article — restructured, rewritten for SEO, and stripped of technical complexity to help 2B+ users diagnose and fix location issues fast.</p>
-          <div class="work-card-footer">
-            <span class="work-outcome">↗ 2B+ users · Support ticket reduction · &lt;2-week ship</span>
-            <button class="work-link cs-toggle-btn" id="googlemaps-toggle" onclick="toggleCaseStudy('googlemaps')">
-              Read case study →
-            </button>
-          </div>
-        </article>
-
-        <div class="case-study-expand case-study-expand--grid" id="googlemaps-expand">
-          <div class="case-study-body">
-            <button class="case-study-close" onclick="toggleCaseStudy('googlemaps')" aria-label="Close">✕</button>
-
-            <div class="cs-header">
-              <div class="cs-meta-row">
-                <span class="cs-meta-pill">Technical Writing</span>
-                <span class="cs-meta-pill">Content Strategy</span>
-                <span class="cs-meta-pill">Google · 2024</span>
-                <span class="cs-meta-pill">Solo project</span>
-                <span class="cs-meta-pill">&lt;2 weeks</span>
-                <span class="cs-meta-pill">Full revamp</span>
+        <div class="work-featured-wrapper work-featured-wrapper--last">
+          <article class="work-card work-card--featured" id="googlemaps-card">
+            <div class="work-card-meta">
+              <div style="display:flex;gap:0.75rem;align-items:center;">
+                <span class="work-tag">Technical Writing</span>
+                <span class="work-tag">Content Strategy</span>
               </div>
-              <h3 class="cs-title">Improving Location Accuracy<br />Guidance in Google Maps</h3>
-              <p class="cs-overview">Google Maps' location accuracy article was outdated, technically inaccurate, and failing users at the moment they needed help most — when their navigation had already broken down. I owned a full revamp: restructuring the content, rewriting for clarity and SEO, and translating complex multi-signal location technology into guidance users could actually act on.</p>
+              <span class="work-year">Google · 2022</span>
             </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Problem</div>
-              <p>When location accuracy fails in Google Maps, users are already frustrated. They need to understand what's wrong and fix it fast — not wade through a technical explanation of how GPS, Wi-Fi, and sensor triangulation work together.</p>
-              <p>The existing article wasn't meeting that need. It was out of date, inaccurate in places, and organized in a way that buried the most useful information. For a platform with over 2 billion monthly active users, that's a significant support gap.</p>
+            <h3>Improving Location Accuracy Guidance in Google Maps</h3>
+            <p>Full revamp of an outdated, inaccurate Help Center article — restructured, rewritten for SEO, and stripped of technical complexity to help 2B+ users diagnose and fix location issues fast.</p>
+            <div class="work-card-footer">
+              <span class="work-outcome">↗ 2B+ users · Support ticket reduction · &lt;2-week ship</span>
+              <button class="work-link cs-toggle-btn" id="googlemaps-toggle" onclick="toggleCaseStudy('googlemaps')">
+                Read case study →
+              </button>
             </div>
+          </article>
 
-            <hr class="cs-divider" />
+          <div class="case-study-expand" id="googlemaps-expand">
+            <div class="case-study-body">
+              <button class="case-study-close" onclick="toggleCaseStudy('googlemaps')" aria-label="Close">✕</button>
 
-            <div class="cs-section">
-              <div class="cs-section-label">My Role</div>
-              <p>I was the sole writer on this project, responsible for the full content lifecycle — audit, restructure, rewrite, and publish — while following Google's style guidelines and Help Center information architecture. I also ensured privacy considerations around location sharing were clearly addressed without making them feel like a compliance insert.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">The Challenge — Technical Accuracy vs. Usability</div>
-              <p>The hardest part was deciding how much of the underlying technology to explain — and landing on: almost none of it.</p>
-              <p>Location in Google Maps is determined by a combination of GPS signals, Wi-Fi networks, and device sensors. That's genuinely complex. But none of that complexity helps a user fix their problem. So I cut most of the technical explanation and focused instead on what users can observe and act on.</p>
-              <p>The blue dot was the trickiest element. It represents uncertainty — the circle around it reflects how confident the system is in the device's position. Instead of explaining the underlying math, I leaned on the visual model itself: dot plus circle, framed in plain language. You're somewhere in this area. The smaller the circle, the more accurate your location. The goal wasn't to explain the system — it was to help users interpret it quickly and trust what they were seeing.</p>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Approach</div>
-              <ul class="cs-list">
-                <li><strong>Full audit before a single word.</strong> Reviewed the existing article end-to-end — identifying what was outdated, inaccurate, and in the wrong order for how users actually navigate the page.</li>
-                <li><strong>Restructure for troubleshooting flow.</strong> Users arrive with a specific problem. I reorganized the content so the most actionable steps came first, with supporting context available for users who wanted it.</li>
-                <li><strong>SEO-informed rewrite.</strong> Rewrote with Google's style guidelines and SEO best practices in mind — improving scannability, heading structure, and keyword alignment without sacrificing clarity.</li>
-                <li><strong>Visual-first framing for the blue dot.</strong> Built the explanation around what users can already see — the dot and its circle — and gave that visual a plain-language meaning they could act on immediately.</li>
-                <li><strong>Privacy, not as an afterthought.</strong> Location sharing has real privacy implications. Made sure that information was present and clear without letting it dominate an article primarily about troubleshooting.</li>
-              </ul>
-            </div>
-
-            <hr class="cs-divider" />
-
-            <div class="cs-section">
-              <div class="cs-section-label">Results</div>
-              <div class="cs-results-grid">
-                <div class="cs-result-card">
-                  <div class="cs-result-number">2B+</div>
-                  <div class="cs-result-label">Monthly active Google Maps users reached</div>
+              <div class="cs-header">
+                <div class="cs-meta-row">
+                  <span class="cs-meta-pill">Technical Writing</span>
+                  <span class="cs-meta-pill">Content Strategy</span>
+                  <span class="cs-meta-pill">Google · 2022</span>
+                  <span class="cs-meta-pill">Solo project</span>
+                  <span class="cs-meta-pill">&lt;2 weeks</span>
+                  <span class="cs-meta-pill">Full revamp</span>
                 </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">&lt;2 wks</div>
-                  <div class="cs-result-label">Full revamp shipped end-to-end</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">↓</div>
-                  <div class="cs-result-label">Measurable reduction in location-related support tickets</div>
-                </div>
-                <div class="cs-result-card">
-                  <div class="cs-result-number">4-in-1</div>
-                  <div class="cs-result-label">Accuracy, usability, SEO & privacy balanced in one article</div>
-                </div>
+                <h3 class="cs-title">Improving Location Accuracy<br />Guidance in Google Maps</h3>
+                <p class="cs-overview">Google Maps' location accuracy article was outdated, technically inaccurate, and failing users at the moment they needed help most — when their navigation had already broken down. I owned a full revamp: restructuring the content, rewriting for clarity and SEO, and translating complex multi-signal location technology into guidance users could actually act on.</p>
               </div>
-              <a href="https://support.google.com/maps/answer/2839911" target="_blank" class="cs-cta">Read the published article ↗</a>
-            </div>
 
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Problem</div>
+                <p>When location accuracy fails in Google Maps, users are already frustrated. They need to understand what's wrong and fix it fast — not wade through a technical explanation of how GPS, Wi-Fi, and sensor triangulation work together.</p>
+                <p>The existing article wasn't meeting that need. It was out of date, inaccurate in places, and organized in a way that buried the most useful information. For a platform with over 2 billion monthly active users, that's a significant support gap.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">My Role</div>
+                <p>I was the sole writer on this project, responsible for the full content lifecycle — audit, restructure, rewrite, and publish — while following Google's style guidelines and Help Center information architecture. I also ensured privacy considerations around location sharing were clearly addressed without making them feel like a compliance insert.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">The Challenge — Technical Accuracy vs. Usability</div>
+                <p>The hardest part was deciding how much of the underlying technology to explain — and landing on: almost none of it.</p>
+                <p>Location in Google Maps is determined by a combination of GPS signals, Wi-Fi networks, and device sensors. That's genuinely complex. But none of that complexity helps a user fix their problem. So I cut most of the technical explanation and focused instead on what users can observe and act on.</p>
+                <p>The blue dot was the trickiest element. It represents uncertainty — the circle around it reflects how confident the system is in the device's position. Instead of explaining the underlying math, I leaned on the visual model itself: dot plus circle, framed in plain language. You're somewhere in this area. The smaller the circle, the more accurate your location. The goal wasn't to explain the system — it was to help users interpret it quickly and trust what they were seeing.</p>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Approach</div>
+                <ul class="cs-list">
+                  <li><strong>Full audit before a single word.</strong> Reviewed the existing article end-to-end — identifying what was outdated, inaccurate, and in the wrong order for how users actually navigate the page.</li>
+                  <li><strong>Restructure for troubleshooting flow.</strong> Users arrive with a specific problem. I reorganized the content so the most actionable steps came first, with supporting context available for users who wanted it.</li>
+                  <li><strong>SEO-informed rewrite.</strong> Rewrote with Google's style guidelines and SEO best practices in mind — improving scannability, heading structure, and keyword alignment without sacrificing clarity.</li>
+                  <li><strong>Visual-first framing for the blue dot.</strong> Built the explanation around what users can already see — the dot and its circle — and gave that visual a plain-language meaning they could act on immediately.</li>
+                  <li><strong>Privacy, not as an afterthought.</strong> Location sharing has real privacy implications. Made sure that information was present and clear without letting it dominate an article primarily about troubleshooting.</li>
+                </ul>
+              </div>
+
+              <hr class="cs-divider" />
+
+              <div class="cs-section">
+                <div class="cs-section-label">Results</div>
+                <div class="cs-results-grid">
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">2B+</div>
+                    <div class="cs-result-label">Monthly active Google Maps users reached</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">&lt;2 wks</div>
+                    <div class="cs-result-label">Full revamp shipped end-to-end</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">↓</div>
+                    <div class="cs-result-label">Measurable reduction in location-related support tickets</div>
+                  </div>
+                  <div class="cs-result-card">
+                    <div class="cs-result-number">4-in-1</div>
+                    <div class="cs-result-label">Accuracy, usability, SEO & privacy balanced in one article</div>
+                  </div>
+                </div>
+                <a href="https://support.google.com/maps/answer/2839911" target="_blank" class="cs-cta">Read the published article ↗</a>
+              </div>
+
+            </div>
           </div>
         </div>
 
-     
-
-      </div><!-- /work-grid -->
-
+      </div><!-- /work-stack -->
     </div>
   </section>
 
@@ -503,34 +504,14 @@
       const toggle = document.getElementById(id + '-toggle');
       const card = document.getElementById(id + '-card');
       const isOpen = expand.classList.contains('is-open');
-      const grid = document.getElementById('work-grid');
 
-      // Close all grid expands and reset buttons
-      document.querySelectorAll('.case-study-expand--grid').forEach(el => {
-        el.classList.remove('is-open');
-        // Move back inside grid if it was pulled out
-        if (!grid.contains(el)) {
-          grid.appendChild(el);
-        }
-      });
-
-      // Close messenger if open
-      document.getElementById('messenger-expand').classList.remove('is-open');
-
-      // Reset all toggle buttons
-      document.querySelectorAll('.cs-toggle-btn').forEach(btn => {
-        btn.textContent = 'Read case study →';
-      });
+      // Close all expands and reset all buttons
+      document.querySelectorAll('.case-study-expand').forEach(el => el.classList.remove('is-open'));
+      document.querySelectorAll('.cs-toggle-btn').forEach(btn => btn.textContent = 'Read case study →');
 
       if (!isOpen) {
         expand.classList.add('is-open');
         toggle.textContent = 'Close ↑';
-
-        // For grid cards, move expand panel after the grid so it's full width
-        if (expand.classList.contains('case-study-expand--grid')) {
-          grid.after(expand);
-        }
-
         setTimeout(() => {
           card.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 80);

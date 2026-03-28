@@ -925,3 +925,26 @@ footer {
 .case-study-expand--grid.is-open {
   display: block;
 }
+
+/* ── WORK STACK (all cards equal full-width) ── */
+.work-stack {
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.work-stack .work-featured-wrapper {
+  margin-bottom: 0;
+  border-bottom: 1.5px solid var(--line);
+}
+
+.work-stack .work-featured-wrapper--last {
+  border-bottom: none;
+}
+
+.work-stack .work-card--featured {
+  border-radius: 0;
+  border: none;
+}

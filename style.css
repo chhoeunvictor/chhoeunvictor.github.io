@@ -1,27 +1,27 @@
 /* ─── CASE STUDY EXPAND ─────────────────────────────── */
-
+ 
 /* Wrapper that sits OUTSIDE the clipped work-grid */
 .work-featured-wrapper {
   margin-bottom: 1.5px;
 }
-
+ 
 /* The featured card inside the wrapper matches grid card styling */
 .work-featured-wrapper .work-card--featured {
   border-radius: 12px 12px 0 0;
   border: 1.5px solid var(--line);
   border-bottom: none;
 }
-
+ 
 .work-featured-wrapper .work-card--featured.cs-open {
   border-color: var(--accent);
 }
-
+ 
 /* The grid below the featured wrapper */
 .work-featured-wrapper + .work-grid {
   border-radius: 0 0 12px 12px;
   border-top: none;
 }
-
+ 
 /* Expand panel */
 .case-study-expand {
   max-height: 0;
@@ -30,12 +30,12 @@
               opacity 0.4s ease;
   opacity: 0;
 }
-
+ 
 .case-study-expand.is-open {
   max-height: 3000px;
   opacity: 1;
 }
-
+ 
 .case-study-body {
   background: var(--bg2);
   border: 1.5px solid var(--accent);
@@ -43,7 +43,7 @@
   padding: 3rem;
   position: relative;
 }
-
+ 
 .case-study-close {
   position: absolute;
   top: 1.5rem;
@@ -61,23 +61,23 @@
   color: var(--muted);
   transition: all 0.2s ease;
 }
-
+ 
 .case-study-close:hover {
   background: var(--accent);
   color: var(--bg);
   border-color: var(--accent);
 }
-
+ 
 /* Case study inner elements */
 .cs-header { margin-bottom: 2.5rem; }
-
+ 
 .cs-meta-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1.25rem;
 }
-
+ 
 .cs-meta-pill {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -88,7 +88,7 @@
   border: 1px solid var(--line);
   color: var(--muted);
 }
-
+ 
 .cs-title {
   font-family: var(--font-serif);
   font-size: clamp(1.5rem, 3vw, 2.25rem);
@@ -97,22 +97,22 @@
   color: var(--text);
   margin-bottom: 0.85rem;
 }
-
+ 
 .cs-overview {
   font-size: 0.97rem;
   color: var(--muted);
   line-height: 1.75;
   max-width: 680px;
 }
-
+ 
 .cs-divider {
   border: none;
   border-top: 1px solid var(--line);
   margin: 2rem 0;
 }
-
+ 
 .cs-section { margin-bottom: 0.5rem; }
-
+ 
 .cs-section-label {
   font-family: var(--font-mono);
   font-size: 0.65rem;
@@ -121,14 +121,14 @@
   color: var(--accent);
   margin-bottom: 0.9rem;
 }
-
+ 
 .cs-section p {
   font-size: 0.94rem;
   line-height: 1.8;
   color: var(--muted);
   margin-bottom: 0.75rem;
 }
-
+ 
 .cs-list {
   list-style: none;
   padding: 0;
@@ -137,7 +137,7 @@
   flex-direction: column;
   gap: 0.75rem;
 }
-
+ 
 .cs-list li {
   font-size: 0.94rem;
   line-height: 1.75;
@@ -145,7 +145,7 @@
   padding-left: 1.25rem;
   position: relative;
 }
-
+ 
 .cs-list li::before {
   content: '—';
   position: absolute;
@@ -154,26 +154,26 @@
   font-size: 0.75rem;
   top: 0.1em;
 }
-
+ 
 .cs-list li strong {
   color: var(--text);
   font-weight: 600;
 }
-
+ 
 .cs-results-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
   margin-top: 1rem;
 }
-
+ 
 .cs-result-card {
   background: var(--bg3);
   border: 1px solid var(--line);
   border-radius: 10px;
   padding: 1.25rem;
 }
-
+ 
 .cs-result-number {
   font-family: var(--font-serif);
   font-size: 1.85rem;
@@ -181,13 +181,13 @@
   line-height: 1;
   margin-bottom: 0.4rem;
 }
-
+ 
 .cs-result-label {
   font-size: 0.75rem;
   color: var(--muted);
   line-height: 1.45;
 }
-
+ 
 .cs-cta {
   display: inline-flex;
   align-items: center;
@@ -203,12 +203,12 @@
   margin-top: 1.75rem;
   transition: opacity 0.2s, border-color 0.2s;
 }
-
+ 
 .cs-cta:hover {
   opacity: 0.7;
   border-color: var(--accent);
 }
-
+ 
 /* Toggle button */
 .cs-toggle-btn {
   cursor: pointer;
@@ -222,15 +222,15 @@
   font-weight: 500;
   transition: letter-spacing 0.2s;
 }
-
+ 
 .cs-toggle-btn:hover { letter-spacing: 0.14em; }
-
+ 
 /* Responsive */
 @media (max-width: 900px) {
   .cs-results-grid { grid-template-columns: 1fr 1fr; }
   .work-featured-wrapper .work-card--featured { border-radius: 12px 12px 0 0; }
 }
-
+ 
 @media (max-width: 600px) {
   .case-study-body { padding: 1.75rem 1.25rem; }
   .cs-results-grid { grid-template-columns: 1fr 1fr; }

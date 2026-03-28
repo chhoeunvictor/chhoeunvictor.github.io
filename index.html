@@ -17,7 +17,6 @@
       <li><a href="#about">About</a></li>
       <li><a href="#work">Case Studies</a></li>
       <li><a href="#writing">Writing Samples</a></li>
-      <li><a href="#contenthistory">Content History</a></li>
       <li><a href="#contact" class="nav-cta">Get in touch</a></li>
     </ul>
     <button class="burger" aria-label="Toggle menu" onclick="toggleMenu()">
@@ -29,7 +28,6 @@
     <a href="#about" onclick="toggleMenu()">About</a>
     <a href="#work" onclick="toggleMenu()">Case Studies</a>
     <a href="#writing" onclick="toggleMenu()">Writing Samples</a>
-    <a href="#contenthistory" onclick="toggleMenu()">Content History</a>
     <a href="#contact" onclick="toggleMenu()">Get in touch</a>
   </div>
 
@@ -85,7 +83,7 @@
         <h2>Selected projects</h2>
       </div>
 
-      <!-- MESSENGER — Featured card outside clipped grid -->
+      <!-- MESSENGER — featured card outside clipped grid -->
       <div class="work-featured-wrapper">
         <article class="work-card work-card--featured" id="messenger-card">
           <div class="work-card-meta">
@@ -93,7 +91,7 @@
               <span class="work-tag">Technical Writing</span>
               <span class="work-tag">Content Strategy</span>
             </div>
-            <span class="work-year">Meta · 2024</span>
+            <span class="work-year">Meta · 2025</span>
           </div>
           <h3>Messenger End-to-End Encryption Documentation</h3>
           <p>Led Help Center documentation for Meta's E2EE rollout on Messenger — translating complex cryptographic concepts into accessible guidance for a global audience of 1B+ users, shipped in 3 weeks across 104 languages.</p>
@@ -188,16 +186,16 @@
       </div><!-- /messenger wrapper -->
 
       <!-- REGULAR CARDS GRID -->
-      <div class="work-grid">
+      <div class="work-grid" id="work-grid">
 
-        <!-- INSTAGRAM — replaces Product Documentation Revamp -->
+        <!-- INSTAGRAM -->
         <article class="work-card" id="instagram-card">
           <div class="work-card-meta">
             <div style="display:flex;gap:0.75rem;align-items:center;">
               <span class="work-tag">UX Writing</span>
               <span class="work-tag">Content Strategy</span>
             </div>
-            <span class="work-year">Meta · 2024</span>
+            <span class="work-year">Meta · 2025</span>
           </div>
           <h3>AI Image & Video Generation on Instagram</h3>
           <p>Sole writer for Meta's confidential AI generation feature launch on Instagram — making non-deterministic AI feel natural and usable for 2B+ users, shipped in under 2 weeks.</p>
@@ -209,8 +207,7 @@
           </div>
         </article>
 
-        <!-- INSTAGRAM EXPAND — sits outside grid flow via JS -->
-        <div class="case-study-expand case-study-expand--inline" id="instagram-expand">
+        <div class="case-study-expand case-study-expand--grid" id="instagram-expand">
           <div class="case-study-body">
             <button class="case-study-close" onclick="toggleCaseStudy('instagram')" aria-label="Close">✕</button>
 
@@ -291,29 +288,108 @@
           </div>
         </div>
 
-        <article class="work-card">
+        <!-- GOOGLE MAPS -->
+        <article class="work-card" id="googlemaps-card">
           <div class="work-card-meta">
-            <span class="work-tag">UX Writing</span>
-            <span class="work-year">2023</span>
+            <div style="display:flex;gap:0.75rem;align-items:center;">
+              <span class="work-tag">Technical Writing</span>
+              <span class="work-tag">Content Strategy</span>
+            </div>
+            <span class="work-year">Google · 2022</span>
           </div>
-          <h3>Mobile Onboarding Copy</h3>
-          <p>UX copy for a mobile app's onboarding flow — tooltips, empty states, error messages, and in-app guidance.</p>
+          <h3>Improving Location Accuracy Guidance in Google Maps</h3>
+          <p>Full revamp of an outdated, inaccurate Help Center article — restructured, rewritten for SEO, and stripped of technical complexity to help 2B+ users diagnose and fix location issues fast.</p>
           <div class="work-card-footer">
-            <a href="#" class="work-link">View project →</a>
+            <span class="work-outcome">↗ 2B+ users · Support ticket reduction · &lt;2-week ship</span>
+            <button class="work-link cs-toggle-btn" id="googlemaps-toggle" onclick="toggleCaseStudy('googlemaps')">
+              Read case study →
+            </button>
           </div>
         </article>
 
-        <article class="work-card">
-          <div class="work-card-meta">
-            <span class="work-tag">Style Guide</span>
-            <span class="work-year">2023</span>
+        <div class="case-study-expand case-study-expand--grid" id="googlemaps-expand">
+          <div class="case-study-body">
+            <button class="case-study-close" onclick="toggleCaseStudy('googlemaps')" aria-label="Close">✕</button>
+
+            <div class="cs-header">
+              <div class="cs-meta-row">
+                <span class="cs-meta-pill">Technical Writing</span>
+                <span class="cs-meta-pill">Content Strategy</span>
+                <span class="cs-meta-pill">Google · 2024</span>
+                <span class="cs-meta-pill">Solo project</span>
+                <span class="cs-meta-pill">&lt;2 weeks</span>
+                <span class="cs-meta-pill">Full revamp</span>
+              </div>
+              <h3 class="cs-title">Improving Location Accuracy<br />Guidance in Google Maps</h3>
+              <p class="cs-overview">Google Maps' location accuracy article was outdated, technically inaccurate, and failing users at the moment they needed help most — when their navigation had already broken down. I owned a full revamp: restructuring the content, rewriting for clarity and SEO, and translating complex multi-signal location technology into guidance users could actually act on.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">The Problem</div>
+              <p>When location accuracy fails in Google Maps, users are already frustrated. They need to understand what's wrong and fix it fast — not wade through a technical explanation of how GPS, Wi-Fi, and sensor triangulation work together.</p>
+              <p>The existing article wasn't meeting that need. It was out of date, inaccurate in places, and organized in a way that buried the most useful information. For a platform with over 2 billion monthly active users, that's a significant support gap.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">My Role</div>
+              <p>I was the sole writer on this project, responsible for the full content lifecycle — audit, restructure, rewrite, and publish — while following Google's style guidelines and Help Center information architecture. I also ensured privacy considerations around location sharing were clearly addressed without making them feel like a compliance insert.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">The Challenge — Technical Accuracy vs. Usability</div>
+              <p>The hardest part was deciding how much of the underlying technology to explain — and landing on: almost none of it.</p>
+              <p>Location in Google Maps is determined by a combination of GPS signals, Wi-Fi networks, and device sensors. That's genuinely complex. But none of that complexity helps a user fix their problem. So I cut most of the technical explanation and focused instead on what users can observe and act on.</p>
+              <p>The blue dot was the trickiest element. It represents uncertainty — the circle around it reflects how confident the system is in the device's position. Instead of explaining the underlying math, I leaned on the visual model itself: dot plus circle, framed in plain language. You're somewhere in this area. The smaller the circle, the more accurate your location. The goal wasn't to explain the system — it was to help users interpret it quickly and trust what they were seeing.</p>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">Approach</div>
+              <ul class="cs-list">
+                <li><strong>Full audit before a single word.</strong> Reviewed the existing article end-to-end — identifying what was outdated, inaccurate, and in the wrong order for how users actually navigate the page.</li>
+                <li><strong>Restructure for troubleshooting flow.</strong> Users arrive with a specific problem. I reorganized the content so the most actionable steps came first, with supporting context available for users who wanted it.</li>
+                <li><strong>SEO-informed rewrite.</strong> Rewrote with Google's style guidelines and SEO best practices in mind — improving scannability, heading structure, and keyword alignment without sacrificing clarity.</li>
+                <li><strong>Visual-first framing for the blue dot.</strong> Built the explanation around what users can already see — the dot and its circle — and gave that visual a plain-language meaning they could act on immediately.</li>
+                <li><strong>Privacy, not as an afterthought.</strong> Location sharing has real privacy implications. Made sure that information was present and clear without letting it dominate an article primarily about troubleshooting.</li>
+              </ul>
+            </div>
+
+            <hr class="cs-divider" />
+
+            <div class="cs-section">
+              <div class="cs-section-label">Results</div>
+              <div class="cs-results-grid">
+                <div class="cs-result-card">
+                  <div class="cs-result-number">2B+</div>
+                  <div class="cs-result-label">Monthly active Google Maps users reached</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">&lt;2 wks</div>
+                  <div class="cs-result-label">Full revamp shipped end-to-end</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">↓</div>
+                  <div class="cs-result-label">Measurable reduction in location-related support tickets</div>
+                </div>
+                <div class="cs-result-card">
+                  <div class="cs-result-number">4-in-1</div>
+                  <div class="cs-result-label">Accuracy, usability, SEO & privacy balanced in one article</div>
+                </div>
+              </div>
+              <a href="https://support.google.com/maps/answer/2839911" target="_blank" class="cs-cta">Read the published article ↗</a>
+            </div>
+
           </div>
-          <h3>Voice & Tone Style Guide</h3>
-          <p>Company-wide writing guidelines covering brand voice, terminology standards, and editorial principles for a SaaS product team.</p>
-          <div class="work-card-footer">
-            <a href="#" class="work-link">View project →</a>
-          </div>
-        </article>
+        </div>
+
+     
 
       </div><!-- /work-grid -->
 
@@ -427,34 +503,37 @@
       const toggle = document.getElementById(id + '-toggle');
       const card = document.getElementById(id + '-card');
       const isOpen = expand.classList.contains('is-open');
+      const grid = document.getElementById('work-grid');
 
-      // Close all first
-      document.querySelectorAll('.case-study-expand').forEach(el => el.classList.remove('is-open'));
+      // Close all grid expands and reset buttons
+      document.querySelectorAll('.case-study-expand--grid').forEach(el => {
+        el.classList.remove('is-open');
+        // Move back inside grid if it was pulled out
+        if (!grid.contains(el)) {
+          grid.appendChild(el);
+        }
+      });
+
+      // Close messenger if open
+      document.getElementById('messenger-expand').classList.remove('is-open');
+
+      // Reset all toggle buttons
       document.querySelectorAll('.cs-toggle-btn').forEach(btn => {
         btn.textContent = 'Read case study →';
       });
 
-      // If it wasn't open, open it
       if (!isOpen) {
         expand.classList.add('is-open');
         toggle.textContent = 'Close ↑';
 
-        // For Instagram, move expand panel after the card row
-        if (id === 'instagram') {
-          const grid = card.closest('.work-grid');
+        // For grid cards, move expand panel after the grid so it's full width
+        if (expand.classList.contains('case-study-expand--grid')) {
           grid.after(expand);
         }
 
         setTimeout(() => {
           card.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 80);
-      } else {
-        // If Instagram expand was moved, put it back
-        if (id === 'instagram') {
-          const grid = document.querySelector('.work-grid');
-          const firstCard = grid.querySelector('article');
-          grid.insertBefore(expand, firstCard.nextSibling);
-        }
       }
     }
   </script>

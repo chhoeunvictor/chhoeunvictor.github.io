@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UX Microcopy — Vault Mobile Banking · Victor Chhoeun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --bg2:      #151515;
+      --bg3:      #1d1d1d;
+      --bg4:      #242424;
+      --line:     rgba(255,255,255,0.08);
+      --line2:    rgba(255,255,255,0.13);
+      --text:     #f0ede6;
+      --muted:    #8a8880;
+      --accent:   #c8b89a;
+      --accent2:  #e8dfd0;
+      --green:    #7eb88a;
+      --green-bg: rgba(126,184,138,0.08);
+      --red:      #d97b6c;
+      --red-bg:   rgba(217,123,108,0.08);
+      --blue:     #7aaed6;
+      --blue-bg:  rgba(122,174,214,0.08);
+      --amber:    #d4a853;
+      --amber-bg: rgba(212,168,83,0.08);
+
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans:  'Syne', system-ui, sans-serif;
+      --font-mono:  'DM Mono', monospace;
+      --max-w: 900px;
+      --pad: clamp(1.5rem, 5vw, 3rem);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+    /* ── TOP NAV ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--pad);
+      height: 60px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    .topbar-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--line2);
+    }
+
+    .topbar-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .topbar-pill {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      border: 1px solid rgba(200,184,154,0.3);
+      padding: 0.25rem 0.65rem;
+      border-radius: 100px;
+    }
+
+    /* ── HERO ── */
+    .page-hero {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: clamp(3rem, 6vw, 5rem) var(--pad) 3rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .page-title em { color: var(--accent); font-style: italic; }
+
+    .page-desc {
+      max-width: 580px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .meta-pill {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line2);
+      padding: 0.3rem 0.75rem;
+      border-radius: 100px;
+    }
+
+    /* ── WRITING INTENT BOX ── */
+    .intent-box {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .intent-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .intent-box p {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--pad) 6rem;
+    }
+
+    /* ── SECTION ── */
+    .copy-section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .copy-section:last-of-type { border-bottom: none; }
+
+    .section-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-header-left { flex: 1; }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+    }
+
+    /* ── COPY CARD ── */
+    .copy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .copy-grid.single { grid-template-columns: 1fr; }
+    .copy-grid.three  { grid-template-columns: 1fr 1fr 1fr; }
+
+    .copy-card {
+      background: var(--bg2);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .copy-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .copy-scenario {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .copy-tag {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.08em;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+    }
+
+    .tag-error   { background: var(--red-bg);   color: var(--red);   }
+    .tag-success { background: var(--green-bg);  color: var(--green); }
+    .tag-info    { background: var(--blue-bg);   color: var(--blue);  }
+    .tag-neutral { background: var(--bg3);       color: var(--muted); border: 1px solid var(--line); }
+
+    /* ── PHONE MOCKUP ── */
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .phone {
+      width: 200px;
+      background: var(--bg3);
+      border: 1.5px solid var(--line2);
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .phone-notch {
+      width: 60px;
+      height: 6px;
+      background: var(--bg4);
+      border-radius: 3px;
+      margin: 10px auto 0;
+    }
+
+    .phone-screen {
+      padding: 1rem;
+      min-height: 160px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .phone-status {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Error state */
+    .phone-error-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--red-bg);
+      border: 1px solid rgba(217,123,108,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-bottom: 0.25rem;
+    }
+
+    .phone-heading {
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .phone-body {
+      font-size: 0.7rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .phone-btn {
+      margin-top: auto;
+      padding: 0.45rem 0;
+      text-align: center;
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .phone-btn-primary { background: var(--accent); color: var(--bg); }
+    .phone-btn-ghost   { border: 1px solid var(--line2); color: var(--muted); margin-top: 0.4rem; }
+    .phone-btn-green   { background: var(--green-bg); color: var(--green); border: 1px solid rgba(126,184,138,0.2); }
+
+    /* Empty state */
+    .phone-empty-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--bg4);
+      border: 1px solid var(--line2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin: 0.5rem auto 0.5rem;
+    }
+
+    /* Success state */
+    .phone-success-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green-bg);
+      border: 1px solid rgba(126,184,138,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Tooltip */
+    .phone-tooltip {
+      background: var(--bg4);
+      border: 1px solid var(--line2);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      position: relative;
+    }
+
+    .phone-tooltip::before {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 10px;
+      height: 6px;
+      background: var(--bg4);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+    }
+
+    .phone-field {
+      background: var(--bg);
+      border: 1px solid var(--line2);
+      border-radius: 6px;
+      padding: 0.5rem 0.6rem;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .phone-field-active {
+      border-color: rgba(200,184,154,0.4);
+      color: var(--text);
+    }
+
+    /* ── WRITING RATIONALE ── */
+    .rationale {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+    }
+
+    .rationale-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .rationale p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .rationale p + p { margin-top: 0.5rem; }
+
+    /* ── BEFORE / AFTER ── */
+    .before-after {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+
+    .ba-col { background: var(--bg2); padding: 1.25rem 1.5rem; }
+
+    .ba-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .ba-label.before { color: var(--red); }
+    .ba-label.after  { color: var(--green); }
+
+    .ba-copy {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .ba-reason {
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+    }
+
+    /* ── PRINCIPLES ── */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .principle-card {
+      background: var(--bg2);
+      padding: 1.5rem;
+    }
+
+    .principle-num {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .principle-title {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .principle-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    .page-footer {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 2rem var(--pad);
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-footer-left {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .page-footer-right a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .page-footer-right a:hover { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .copy-grid, .copy-grid.three, .before-after, .principles-grid { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <nav class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="back-link">← Portfolio</a>
+      <div class="topbar-divider"></div>
+      <span class="topbar-title">UX Microcopy · Vault</span>
+    </div>
+    <span class="topbar-pill">Writing Sample</span>
+  </nav>
+
+  <!-- HERO -->
+  <div class="page-hero">
+    <span class="page-eyebrow">UX Microcopy · Writing Sample</span>
+    <h1 class="page-title">Vault Mobile Banking<br /><em>Microcopy System</em></h1>
+    <p class="page-desc">
+      A curated set of UX copy for Vault — a fictional mobile banking app — covering error messages, empty states, success confirmations, and onboarding tooltips. Each piece is written to reduce anxiety, build trust, and keep users moving.
+    </p>
+    <div class="meta-pills">
+      <span class="meta-pill">UX Writing</span>
+      <span class="meta-pill">Mobile · iOS & Android</span>
+      <span class="meta-pill">Fintech</span>
+      <span class="meta-pill">Spec work</span>
+      <span class="meta-pill">Victor Chhoeun</span>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="page-body">
+
+    <div style="padding-top:3rem;">
+      <div class="intent-box">
+        <span class="intent-label">Writing intent</span>
+        <p>Financial products carry high emotional stakes — users are moving real money, making decisions that matter. Every word in a banking app needs to do two things at once: give users the information they need to act, and make them feel like the product has their back. The copy here is calm, direct, and human — never clinical, never vague.</p>
+      </div>
+    </div>
+
+    <!-- ── SECTION 1: ERROR MESSAGES ── -->
+    <div class="copy-section">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">01 · Error Messages</span>
+          <h2 class="section-title">When things go wrong</h2>
+          <p class="section-desc">Error messages in fintech are high-stakes. Users are already stressed. Copy needs to explain what happened, reassure them nothing bad occurred, and tell them exactly what to do next — in as few words as possible.</p>
+        </div>
+      </div>
+
+      <!-- Before / After -->
+      <div class="before-after">
+        <div class="ba-col">
+          <span class="ba-label before">✕ Before</span>
+          <p class="ba-copy">"Error: Transaction failed. Please try again later or contact support if the issue persists."</p>
+          <p class="ba-reason">Generic, cold, and unhelpful. "Try again later" gives users no timeframe. "Contact support" feels like a dead end. No reassurance that money is safe.</p>
+        </div>
+        <div class="ba-col">
+          <span class="ba-label after">✓ After</span>
+          <p class="ba-copy">"Your transfer didn't go through — but your money is safe. Check your connection and try again. Still stuck? We're here."</p>
+          <p class="ba-reason">Leads with reassurance, gives a clear action, and ends with a human offer of help. Conversational but not casual.</p>
+        </div>
+      </div>
+
+      <div class="copy-grid">
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Failed transfer</span>
+            <span class="copy-tag tag-error">Error</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-error-icon">✕</div>
+                <div class="phone-heading">Transfer didn't go through</div>
+                <div class="phone-body">Your money is safe — nothing was moved. Check your connection and try again.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;">Try again</div>
+                <div class="phone-btn phone-btn-ghost">Contact support</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"Didn't go through" is softer than "failed" — it implies a fixable hiccup, not a broken system. Reassuring the user their money is safe before anything else reduces panic. Two actions: self-serve first, support second.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Incorrect PIN — 2 attempts left</span>
+            <span class="copy-tag tag-error">Error</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-error-icon">🔒</div>
+                <div class="phone-heading">That PIN wasn't right</div>
+                <div class="phone-body">2 attempts left before your account is temporarily locked. Take your time — or reset your PIN now.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;">Try again</div>
+                <div class="phone-btn phone-btn-ghost">Reset PIN</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"Take your time" slows users down before they accidentally lock themselves out. Framing lockout as "temporary" reduces alarm. The reset path is offered early — not buried after a full lockout.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Insufficient funds</span>
+            <span class="copy-tag tag-error">Error</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-error-icon">💳</div>
+                <div class="phone-heading">Not enough funds</div>
+                <div class="phone-body">You're $24.50 short for this transfer. Add money to your account or adjust the amount.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;">Add money</div>
+                <div class="phone-btn phone-btn-ghost">Edit amount</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>Showing the exact shortfall ($24.50) gives users a clear target — they know exactly how much to add. Two recovery paths keep users in the flow rather than abandoning the transaction entirely.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Session expired</span>
+            <span class="copy-tag tag-error">Error</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-error-icon">⏱</div>
+                <div class="phone-heading">You were signed out</div>
+                <div class="phone-body">For your security, we sign you out after a period of inactivity. Sign back in to continue.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;">Sign in</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"Signed out" is less alarming than "session expired" — it's familiar language. Explaining the reason (security, not a bug) reframes the interruption as something the app did on purpose to protect them.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 2: EMPTY STATES ── -->
+    <div class="copy-section">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">02 · Empty States</span>
+          <h2 class="section-title">Nothing here yet</h2>
+          <p class="section-desc">Empty states are missed opportunities in most apps. In banking, they're a chance to reduce anxiety ("is something wrong?") and guide users toward their next action without pressure.</p>
+        </div>
+      </div>
+
+      <div class="copy-grid three">
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">No transactions yet</span>
+            <span class="copy-tag tag-neutral">Empty</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-empty-icon">📋</div>
+                <div class="phone-heading" style="text-align:center;font-size:0.75rem;">No transactions yet</div>
+                <div class="phone-body" style="text-align:center;font-size:0.65rem;">Your activity will show up here once you make your first transfer or payment.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;font-size:0.65rem;">Send money</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>Confirms nothing is broken. Sets expectations for what will appear. CTA invites the first action without being pushy.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">No linked accounts</span>
+            <span class="copy-tag tag-neutral">Empty</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-empty-icon">🏦</div>
+                <div class="phone-heading" style="text-align:center;font-size:0.75rem;">Connect a bank account</div>
+                <div class="phone-body" style="text-align:center;font-size:0.65rem;">Link an external account to move money in and out of Vault. Takes about 2 minutes.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.75rem;font-size:0.65rem;">Link account</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p">"Takes about 2 minutes" removes the hesitation barrier. The heading is action-oriented — it tells users what to do, not just what's missing.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">No notifications</span>
+            <span class="copy-tag tag-neutral">Empty</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-empty-icon">🔔</div>
+                <div class="phone-heading" style="text-align:center;font-size:0.75rem;">You're all caught up</div>
+                <div class="phone-body" style="text-align:center;font-size:0.65rem;">We'll let you know when something needs your attention — transfers, security alerts, and more.</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"You're all caught up" is a positive framing of nothing — it feels like an achievement, not a dead end. Sets expectations for what notifications will look like.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 3: SUCCESS MESSAGES ── -->
+    <div class="copy-section">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">03 · Success Messages</span>
+          <h2 class="section-title">When it works</h2>
+          <p class="section-desc">Success copy in fintech needs to confirm the action clearly, give users what they need to feel confident, and get out of the way. No celebration overload — just calm, clear confirmation.</p>
+        </div>
+      </div>
+
+      <div class="copy-grid">
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Transfer sent</span>
+            <span class="copy-tag tag-success">Success</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-success-icon">✓</div>
+                <div class="phone-heading">$250 on its way</div>
+                <div class="phone-body">Sent to Jamie L. · Arrives by Thu, Aug 15. We'll notify you when it lands.</div>
+                <div class="phone-btn phone-btn-green" style="margin-top:0.75rem;">Done</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>The amount is the headline — it's what the user cares most about confirming. Arrival date and proactive notification promise reduce the need for users to follow up anxiously.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Account verified</span>
+            <span class="copy-tag tag-success">Success</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-success-icon">🔓</div>
+                <div class="phone-heading">You're verified</div>
+                <div class="phone-body">Your identity has been confirmed. You now have full access to all Vault features.</div>
+                <div class="phone-btn phone-btn-green" style="margin-top:0.75rem;">Go to my account</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"You're verified" is a personal, direct confirmation. "Full access" signals reward — users who went through the friction of verification want to know it was worth it.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Bill payment scheduled</span>
+            <span class="copy-tag tag-success">Success</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-success-icon">📅</div>
+                <div class="phone-heading">Payment scheduled</div>
+                <div class="phone-body">$84.00 to Pacific Gas & Electric · Aug 20. We'll remind you 2 days before.</div>
+                <div class="phone-btn phone-btn-green" style="margin-top:0.75rem;">Done</div>
+                <div class="phone-btn phone-btn-ghost">Edit payment</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>Specific payee name and date confirms the right thing was scheduled. The 2-day reminder promise reduces cognitive load — users don't need to set their own calendar reminder. Edit path lets users correct mistakes immediately.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">PIN changed</span>
+            <span class="copy-tag tag-success">Success</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div class="phone-success-icon">🔒</div>
+                <div class="phone-heading">PIN updated</div>
+                <div class="phone-body">Your new PIN is active. If you didn't make this change, contact us immediately.</div>
+                <div class="phone-btn phone-btn-green" style="margin-top:0.75rem;">Got it</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>Security actions need a safety net. The "didn't make this change?" line is standard practice but the phrasing avoids alarm — it's calm and action-oriented, not scary.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTION 4: ONBOARDING TOOLTIPS ── -->
+    <div class="copy-section">
+      <div class="section-header">
+        <div class="section-header-left">
+          <span class="section-eyebrow">04 · Onboarding Tooltips</span>
+          <h2 class="section-title">First-time guidance</h2>
+          <p class="section-desc">Onboarding tooltips need to be brief, contextual, and genuinely useful. In a banking app, users are already nervous about a new product handling their money — tooltips should build confidence, not add cognitive load.</p>
+        </div>
+      </div>
+
+      <div class="copy-grid">
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Instant transfer feature</span>
+            <span class="copy-tag tag-info">Tooltip</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div style="height:30px;"></div>
+                <div class="phone-tooltip">
+                  <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;">⚡ Instant transfers</div>
+                  <div style="font-size:0.63rem;color:var(--muted);line-height:1.5;">Move money between Vault accounts in seconds — any time, any day. No waiting, no fees.</div>
+                </div>
+                <div style="height:8px;"></div>
+                <div class="phone-field">Send to Vault user</div>
+                <div class="phone-btn phone-btn-primary" style="font-size:0.65rem;">Got it</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>Leads with the benefit (seconds, any time, no fees) not the mechanics. Short enough to read in a glance. "Got it" dismissal is friendly — not "dismiss" or "close."</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Vault number explained</span>
+            <span class="copy-tag tag-info">Tooltip</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div style="height:20px;"></div>
+                <div class="phone-tooltip">
+                  <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;">Your Vault number</div>
+                  <div style="font-size:0.63rem;color:var(--muted);line-height:1.5;">This is your unique ID for receiving money on Vault. Share it like you'd share a username — it's not your account number.</div>
+                </div>
+                <div style="height:8px;"></div>
+                <div class="phone-field phone-field-active">@victor · #4821</div>
+                <div class="phone-btn phone-btn-primary" style="font-size:0.65rem;">Got it</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>The key job is alleviating anxiety: "not your account number" directly addresses the worry users have about sharing financial identifiers. Uses familiar analogy (username) to make a new concept click.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Spending insights first visit</span>
+            <span class="copy-tag tag-info">Tooltip</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div style="height:20px;"></div>
+                <div class="phone-tooltip">
+                  <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;">📊 Spending insights</div>
+                  <div style="font-size:0.63rem;color:var(--muted);line-height:1.5;">Vault automatically categorizes your transactions. The more you use it, the smarter it gets.</div>
+                </div>
+                <div style="height:8px;"></div>
+                <div style="background:var(--bg4);border-radius:8px;padding:0.5rem;font-size:0.62rem;color:var(--muted);">Your insights will appear here after your first transaction.</div>
+                <div class="phone-btn phone-btn-primary" style="margin-top:0.5rem;font-size:0.65rem;">Got it</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>"The smarter it gets" sets a positive expectation without overpromising. Avoids technical language about ML or categorization algorithms — users don't need to know how it works, just what it does for them.</p>
+          </div>
+        </div>
+
+        <div class="copy-card">
+          <div class="copy-card-top">
+            <span class="copy-scenario">Biometric login setup</span>
+            <span class="copy-tag tag-info">Tooltip</span>
+          </div>
+          <div class="phone-wrap">
+            <div class="phone">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-status"><span>9:41</span><span>●●●</span></div>
+                <div style="height:20px;"></div>
+                <div class="phone-tooltip">
+                  <div style="font-size:0.7rem;font-weight:600;color:var(--text);margin-bottom:0.3rem;">Face ID or fingerprint</div>
+                  <div style="font-size:0.63rem;color:var(--muted);line-height:1.5;">Sign in with a glance or a tap. Your biometric data never leaves your device — Vault never sees it.</div>
+                </div>
+                <div style="height:8px;"></div>
+                <div class="phone-btn phone-btn-primary" style="font-size:0.65rem;">Enable Face ID</div>
+                <div class="phone-btn phone-btn-ghost" style="font-size:0.65rem;">Not now</div>
+              </div>
+            </div>
+          </div>
+          <div class="rationale">
+            <span class="rationale-label">Why this works</span>
+            <p>The biggest barrier to biometric adoption is privacy anxiety. Addressing it directly ("never leaves your device") removes the hesitation. "Not now" instead of "Skip" is less final and less negative.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Writing Principles -->
+      <div class="principles-grid">
+        <div class="principle-card">
+          <span class="principle-num">01</span>
+          <div class="principle-title">Lead with reassurance</div>
+          <p class="principle-desc">In fintech, users' first instinct when something goes wrong is panic. Address the emotional state before giving instructions — tell them their money is safe before explaining what to do next.</p>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">02</span>
+          <div class="principle-title">Be specific, not vague</div>
+          <p class="principle-desc">Exact amounts, names, and dates build trust. "Your transfer didn't go through" is less reassuring than "$250 to Jamie L. didn't go through." Specificity signals the app knows what's happening.</p>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">03</span>
+          <div class="principle-title">Always give a next step</div>
+          <p class="principle-desc">Dead-end messages lose users. Every error or empty state should tell users what they can do. Even if the answer is "contact support," frame it as an open door — not a last resort.</p>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">04</span>
+          <div class="principle-title">Human, not clinical</div>
+          <p class="principle-desc">Banking copy defaults to formal language. Vault's voice is calm and direct — like a knowledgeable friend explaining something clearly, not a legal document covering its bases.</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /page-body -->
+
+  <div class="page-footer">
+    <div class="page-footer-left">Written by Victor Chhoeun · Portfolio writing sample · Vault is a fictional product</div>
+    <div class="page-footer-right"><a href="index.html">← Back to portfolio</a></div>
+  </div>
+
+</body>
+</html>

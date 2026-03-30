@@ -1101,12 +1101,12 @@
     }
 
     function switchTab(tab, targetId) {
-      const container = tab.closest('.endpoint-body') || tab.closest('.doc-section');
-      container.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
-      container.querySelectorAll('.rblock').forEach(b => b.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById(targetId).classList.add('active');
-    }
+  const container = tab.closest('.endpoint-body');
+  container.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  container.querySelectorAll('.rblock').forEach(b => b.classList.remove('active'));
+  tab.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
 
     function scrollTo(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });

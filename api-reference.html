@@ -883,6 +883,350 @@
           </div>
         </div>
       </div>
+      <!-- UPDATE PAGE -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method put">PUT</span>
+          <span class="endpoint-path">/pages/{page_id}</span>
+          <span class="endpoint-desc">Update an existing page</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Path parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">page_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The unique ID of the page to update.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Request body</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">title</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>New title for the page. Max 255 characters.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">content</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Updated body content in Markdown format. Replaces all existing content.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">archived</span></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Set to <span class="ic">true</span> to archive the page. Archived pages are hidden but not deleted.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X PUT \
+  <span class="str">"https://api.flowdesk.io/v1/pages/pg_7xK2mNpQ"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d '{
+    <span class="key">"title"</span>:   <span class="str">"Product Roadmap Q3 — Updated"</span>,
+    <span class="key">"content"</span>: <span class="str">"## Q3 Goals\n- Launch feature A\n- Ship v2"</span>
+  }'</div>
+            </div>
+          </div>
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'p-update-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'p-update-404')">404 Not Found</span>
+            </div>
+            <div class="rblock active" id="p-update-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"id"</span>:           <span class="str">"pg_7xK2mNpQ"</span>,
+  <span class="key">"object"</span>:       <span class="str">"page"</span>,
+  <span class="key">"title"</span>:        <span class="str">"Product Roadmap Q3 — Updated"</span>,
+  <span class="key">"content"</span>:      <span class="str">"## Q3 Goals\n- Launch feature A\n- Ship v2"</span>,
+  <span class="key">"workspace_id"</span>: <span class="str">"ws_abc123"</span>,
+  <span class="key">"archived"</span>:     <span class="num">false</span>,
+  <span class="key">"updated_at"</span>:   <span class="str">"2024-08-15T09:30:00Z"</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="p-update-404">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"not_found"</span>,
+    <span class="key">"message"</span>: <span class="str">"No page found with the ID 'pg_7xK2mNpQ'."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DELETE PAGE -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method del">DEL</span>
+          <span class="endpoint-path">/pages/{page_id}</span>
+          <span class="endpoint-desc">Permanently delete a page</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Path parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">page_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The unique ID of the page to delete. This action is permanent and cannot be undone.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout callout-warning">
+            <span class="callout-icon">⚠</span>
+            <p>Deleting a page is permanent. All sub-pages nested under it will also be deleted. To hide a page without deleting it, use the <span class="ic">archived</span> field in the Update page endpoint instead.</p>
+          </div>
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X DELETE \
+  <span class="str">"https://api.flowdesk.io/v1/pages/pg_7xK2mNpQ"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'p-delete-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'p-delete-404')">404 Not Found</span>
+            </div>
+            <div class="rblock active" id="p-delete-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"object"</span>:  <span class="str">"page"</span>,
+  <span class="key">"id"</span>:      <span class="str">"pg_7xK2mNpQ"</span>,
+  <span class="key">"deleted"</span>: <span class="num">true</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="p-delete-404">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"not_found"</span>,
+    <span class="key">"message"</span>: <span class="str">"No page found with the ID 'pg_7xK2mNpQ'."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- WORKSPACES -->
+    <section class="doc-section" id="workspaces">
+      <span class="section-eyebrow">Workspaces</span>
+      <h2>Workspaces</h2>
+      <p>A workspace is the top-level container in Flowdesk — it holds all pages, members, and settings for a team. Use these endpoints to retrieve workspace details and list members.</p>
+
+      <!-- GET WORKSPACE -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/workspaces/{workspace_id}</span>
+          <span class="endpoint-desc">Retrieve a workspace by ID</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Path parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">workspace_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The unique ID of the workspace to retrieve.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X GET \
+  <span class="str">"https://api.flowdesk.io/v1/workspaces/ws_abc123"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'ws-get-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'ws-get-404')">404 Not Found</span>
+            </div>
+            <div class="rblock active" id="ws-get-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"id"</span>:           <span class="str">"ws_abc123"</span>,
+  <span class="key">"object"</span>:       <span class="str">"workspace"</span>,
+  <span class="key">"name"</span>:         <span class="str">"Acme Team"</span>,
+  <span class="key">"domain"</span>:       <span class="str">"acme"</span>,
+  <span class="key">"plan"</span>:         <span class="str">"pro"</span>,
+  <span class="key">"member_count"</span>: <span class="num">12</span>,
+  <span class="key">"created_at"</span>:   <span class="str">"2023-03-10T08:00:00Z"</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="ws-get-404">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"not_found"</span>,
+    <span class="key">"message"</span>: <span class="str">"No workspace found with the ID 'ws_abc123'."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIST MEMBERS -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/workspaces/{workspace_id}/members</span>
+          <span class="endpoint-desc">List all members of a workspace</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Path parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">workspace_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The unique ID of the workspace.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Query parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">role</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Filter by role. One of <span class="ic">owner</span>, <span class="ic">admin</span>, or <span class="ic">member</span>.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">limit</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Number of members to return. Defaults to <span class="ic">20</span>. Max is <span class="ic">100</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X GET \
+  <span class="str">"https://api.flowdesk.io/v1/workspaces/ws_abc123/members?role=admin"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'ws-members-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'ws-members-401')">401 Unauthorized</span>
+            </div>
+            <div class="rblock active" id="ws-members-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"object"</span>:   <span class="str">"list"</span>,
+  <span class="key">"results"</span>: [
+    {
+      <span class="key">"id"</span>:        <span class="str">"usr_9aR3bTcU"</span>,
+      <span class="key">"object"</span>:    <span class="str">"member"</span>,
+      <span class="key">"name"</span>:      <span class="str">"Jamie Lee"</span>,
+      <span class="key">"email"</span>:     <span class="str">"jamie@acme.com"</span>,
+      <span class="key">"role"</span>:      <span class="str">"admin"</span>,
+      <span class="key">"joined_at"</span>: <span class="str">"2023-04-01T10:00:00Z"</span>
+    }
+  ],
+  <span class="key">"has_more"</span>: <span class="num">false</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="ws-members-401">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"unauthorized"</span>,
+    <span class="key">"message"</span>: <span class="str">"Invalid or missing API key."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <hr />
@@ -992,6 +1336,93 @@
           </div>
         </div>
       </div>
+
+      <!-- LIST NOTIFICATIONS -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/notifications</span>
+          <span class="endpoint-desc">List notifications for the current user</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Query parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">workspace_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The ID of the workspace to retrieve notifications from.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">unread</span></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>If <span class="ic">true</span>, returns only unread notifications. Defaults to <span class="ic">false</span>.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">limit</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Number of notifications to return. Defaults to <span class="ic">20</span>. Max is <span class="ic">50</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X GET \
+  <span class="str">"https://api.flowdesk.io/v1/notifications?workspace_id=ws_abc123&unread=true"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span></div>
+            </div>
+          </div>
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'n-list-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'n-list-401')">401 Unauthorized</span>
+            </div>
+            <div class="rblock active" id="n-list-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"object"</span>:   <span class="str">"list"</span>,
+  <span class="key">"results"</span>: [
+    {
+      <span class="key">"id"</span>:         <span class="str">"ntf_5dM2nOpR"</span>,
+      <span class="key">"object"</span>:     <span class="str">"notification"</span>,
+      <span class="key">"type"</span>:       <span class="str">"info"</span>,
+      <span class="key">"message"</span>:    <span class="str">"Product Roadmap Q3 has been updated."</span>,
+      <span class="key">"read"</span>:       <span class="num">false</span>,
+      <span class="key">"created_at"</span>: <span class="str">"2024-08-14T11:15:00Z"</span>
+    }
+  ],
+  <span class="key">"has_more"</span>: <span class="num">false</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="n-list-401">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"unauthorized"</span>,
+    <span class="key">"message"</span>: <span class="str">"Invalid or missing API key."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <hr />
@@ -1029,7 +1460,7 @@
         </div>
         <div class="status-row">
           <span class="status-code status-429">429</span>
-          <span class="status-desc"><strong style="color:var(--text)">Too Many Requests</strong> — You have exceeded the rate limit. Wait before retrying. See <a onclick="scrollTo('rate-limits')" style="color:var(--accent);cursor:pointer;">Rate limits</a> for details.</span>
+          <span class="status-desc"><strong style="color:var(--text)">Too Many Requests</strong> — You have exceeded the rate limit. Wait before retrying. See <a onclick="scrollToSection('rate-limits')" style="color:var(--accent);cursor:pointer;">Rate limits</a> for details.</span>
         </div>
       </div>
     </section>

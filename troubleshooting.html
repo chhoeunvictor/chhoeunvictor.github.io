@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowdesk Troubleshooting Guide · Victor Chhoeun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0d0d0d;--bg2:#151515;--bg3:#1d1d1d;--bg4:#242424;
+      --line:rgba(255,255,255,0.08);--line2:rgba(255,255,255,0.13);
+      --text:#f0ede6;--muted:#8a8880;--accent:#c8b89a;--accent2:#e8dfd0;
+      --green:#7eb88a;--green-bg:rgba(126,184,138,0.08);
+      --red:#d97b6c;--red-bg:rgba(217,123,108,0.08);
+      --blue:#7aaed6;--blue-bg:rgba(122,174,214,0.08);
+      --amber:#d4a853;--amber-bg:rgba(212,168,83,0.08);
+      --font-serif:'DM Serif Display',Georgia,serif;
+      --font-sans:'Syne',system-ui,sans-serif;
+      --font-mono:'DM Mono',monospace;
+      --sidebar-w:260px;--max-w:860px;--pad:2.5rem;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg);color:var(--text);font-family:var(--font-sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh; }
+    a { color:inherit;text-decoration:none; }
+    ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:2px;}
+
+    /* ── SIDEBAR ── */
+    .sidebar{width:var(--sidebar-w);min-height:100vh;background:var(--bg2);border-right:1px solid var(--line);padding:2rem 0;position:fixed;top:0;left:0;display:flex;flex-direction:column;overflow-y:auto;}
+    .sidebar-logo{padding:0 1.5rem 1.75rem;border-bottom:1px solid var(--line);margin-bottom:1.5rem;}
+    .sidebar-logo .product{font-family:var(--font-serif);font-size:1.2rem;color:var(--text);display:block;}
+    .sidebar-logo .version{font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);letter-spacing:0.1em;margin-top:0.2rem;display:block;}
+    .sidebar-back{display:inline-flex;align-items:center;gap:0.4rem;font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.12em;color:var(--muted);padding:0 1.5rem;margin-bottom:1.5rem;text-transform:uppercase;transition:color 0.2s;}
+    .sidebar-back:hover{color:var(--accent);}
+    .sidebar-section{padding:0 1.5rem;margin-bottom:1.75rem;}
+    .sidebar-section-label{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;display:block;}
+    .sidebar-link{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0.6rem;border-radius:6px;font-size:0.82rem;color:var(--muted);transition:color 0.15s,background 0.15s;margin-bottom:0.1rem;cursor:pointer;}
+    .sidebar-link:hover{color:var(--text);background:var(--bg3);}
+    .sidebar-link.active{color:var(--text);background:var(--bg3);}
+
+    /* ── MAIN ── */
+    .main{margin-left:var(--sidebar-w);flex:1;max-width:var(--max-w);padding:var(--pad) calc(var(--pad) * 1.5);}
+    .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--line);}
+    .topbar-title{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);}
+    .topbar-pill{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.1em;color:var(--accent);border:1px solid rgba(200,184,154,0.3);padding:0.25rem 0.65rem;border-radius:100px;}
+
+    /* ── TYPOGRAPHY ── */
+    .doc-section{margin-bottom:4rem;scroll-margin-top:2rem;}
+    .section-eyebrow{font-family:var(--font-mono);font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem;display:block;}
+    h1{font-family:var(--font-serif);font-size:2.4rem;font-weight:400;color:var(--text);line-height:1.15;margin-bottom:1rem;}
+    h2{font-family:var(--font-serif);font-size:1.6rem;font-weight:400;color:var(--text);line-height:1.2;margin-bottom:0.75rem;}
+    h3{font-family:var(--font-sans);font-size:0.9rem;font-weight:600;color:var(--text);letter-spacing:0.02em;margin-bottom:0.5rem;margin-top:0.25rem;}
+    p{color:var(--muted);font-size:0.92rem;line-height:1.8;margin-bottom:1rem;}
+    ul,ol{color:var(--muted);font-size:0.92rem;line-height:1.8;padding-left:1.5rem;margin-bottom:1rem;}
+    li{margin-bottom:0.3rem;}
+    li strong{color:var(--text);}
+    hr{border:none;border-top:1px solid var(--line);margin:3rem 0;}
+    .ic{font-family:var(--font-mono);font-size:0.78em;background:var(--bg3);border:1px solid var(--line);padding:0.1em 0.4em;border-radius:4px;color:var(--accent);}
+
+    /* ── ISSUE CARD ── */
+    .issue-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:1.25rem;}
+    .issue-header{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);cursor:pointer;user-select:none;transition:background 0.15s;}
+    .issue-header:hover{background:var(--bg3);}
+    .issue-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;}
+    .icon-red{background:var(--red-bg);border:1px solid rgba(217,123,108,0.2);}
+    .icon-amber{background:var(--amber-bg);border:1px solid rgba(212,168,83,0.2);}
+    .icon-blue{background:var(--blue-bg);border:1px solid rgba(122,174,214,0.2);}
+    .issue-title{font-size:0.9rem;font-weight:600;color:var(--text);flex:1;}
+    .issue-badge{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.08em;padding:0.15rem 0.5rem;border-radius:3px;flex-shrink:0;}
+    .badge-common{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(212,168,83,0.2);}
+    .badge-auth{background:var(--red-bg);color:var(--red);border:1px solid rgba(217,123,108,0.2);}
+    .badge-perf{background:var(--blue-bg);color:var(--blue);border:1px solid rgba(122,174,214,0.2);}
+    .issue-toggle{font-size:0.7rem;color:var(--muted);margin-left:0.5rem;}
+    .issue-body{display:none;padding:1.25rem;border-top:1px solid var(--line);flex-direction:column;gap:1.25rem;}
+    .issue-body.open{display:flex;}
+
+    /* ── SYMPTOM / CAUSE / FIX ── */
+    .scf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-bottom:0.25rem;}
+    .scf-col{background:var(--bg2);padding:1rem 1.1rem;}
+    .scf-label{font-family:var(--font-mono);font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:0.5rem;display:block;}
+    .label-symptom{color:var(--muted);}
+    .label-cause{color:var(--amber);}
+    .label-fix{color:var(--green);}
+    .scf-text{font-size:0.84rem;color:var(--muted);line-height:1.65;}
+
+    /* ── STEPS ── */
+    .steps-label{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;display:block;}
+    .step-row{display:flex;gap:0.85rem;margin-bottom:0.85rem;align-items:flex-start;}
+    .step-row:last-child{margin-bottom:0;}
+    .step-num{font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);background:var(--bg3);border:1px solid var(--line);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+    .step-content{font-size:0.87rem;color:var(--text);line-height:1.65;flex:1;}
+    .step-content p{color:var(--muted);font-size:0.82rem;margin:0.25rem 0 0;line-height:1.6;}
+
+    /* ── CODE BLOCK ── */
+    .code-block{background:var(--bg3);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:0.5rem 0;}
+    .code-block-header{display:flex;align-items:center;justify-content:space-between;padding:0.55rem 1rem;border-bottom:1px solid var(--line);background:var(--bg4);}
+    .code-lang{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+    .copy-btn{font-family:var(--font-mono);font-size:0.6rem;color:var(--muted);background:none;border:1px solid var(--line);padding:0.2rem 0.6rem;border-radius:4px;cursor:pointer;transition:color 0.15s,border-color 0.15s;}
+    .copy-btn:hover{color:var(--accent);border-color:rgba(200,184,154,0.35);}
+    .code-content{padding:1rem 1.25rem;font-family:var(--font-mono);font-size:0.78rem;line-height:1.8;color:var(--text);overflow-x:auto;white-space:pre;}
+    .code-content .kw{color:var(--accent);}
+    .code-content .str{color:var(--green);}
+    .code-content .cm{color:var(--muted);}
+
+    /* ── CALLOUTS ── */
+    .callout{display:flex;gap:0.85rem;padding:0.9rem 1.1rem;border-radius:7px;font-size:0.84rem;line-height:1.7;border-left:3px solid;}
+    .callout-note{background:var(--blue-bg);border-color:var(--blue);color:var(--blue);}
+    .callout-warning{background:var(--amber-bg);border-color:var(--amber);color:var(--amber);}
+    .callout-tip{background:var(--green-bg);border-color:var(--green);color:var(--green);}
+    .callout-type{font-family:var(--font-mono);font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;display:block;margin-bottom:0.25rem;}
+    .callout p{color:inherit;margin:0;font-size:0.84rem;}
+
+    /* ── QUICK REF TABLE ── */
+    .ref-table{width:100%;border-collapse:collapse;font-size:0.84rem;margin:0.75rem 0;}
+    .ref-table th{font-family:var(--font-mono);font-size:0.6rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.55rem 1rem;border-bottom:1px solid var(--line);font-weight:400;}
+    .ref-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted);line-height:1.6;font-size:0.84rem;}
+    .ref-table tr:last-child td{border-bottom:none;}
+    .ref-table tr:hover td{background:rgba(255,255,255,0.02);}
+    .error-code{font-family:var(--font-mono);font-size:0.78rem;color:var(--red);}
+    .error-meaning{color:var(--text);}
+
+    /* ── FOOTER ── */
+    .doc-footer{margin-top:5rem;padding-top:2rem;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;}
+    .doc-footer-left{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;color:var(--muted);}
+    .doc-footer-right a{font-family:var(--font-mono);font-size:0.65rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;transition:color 0.2s;}
+    .doc-footer-right a:hover{color:var(--accent2);}
+
+    @media(max-width:768px){.sidebar{display:none;}.main{margin-left:0;padding:1.5rem;}.scf-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <span class="product">Flowdesk Help</span>
+    <span class="version">Troubleshooting guide</span>
+  </div>
+  <a href="index.html" class="sidebar-back">← Back to portfolio</a>
+
+  <div class="sidebar-section">
+    <span class="sidebar-section-label">Overview</span>
+    <a class="sidebar-link active" id="nav-overview" onclick="goTo('overview')">About this guide</a>
+    <a class="sidebar-link" id="nav-before" onclick="goTo('before')">Before you start</a>
+    <a class="sidebar-link" id="nav-error-ref" onclick="goTo('error-ref')">Error code reference</a>
+  </div>
+
+  <div class="sidebar-section">
+    <span class="sidebar-section-label">Connection & Auth</span>
+    <a class="sidebar-link" id="nav-cant-sign-in" onclick="goTo('cant-sign-in')">Can't sign in</a>
+    <a class="sidebar-link" id="nav-api-key" onclick="goTo('api-key')">API key rejected</a>
+    <a class="sidebar-link" id="nav-session" onclick="goTo('session')">Frequent sign-outs</a>
+  </div>
+
+  <div class="sidebar-section">
+    <span class="sidebar-section-label">Performance</span>
+    <a class="sidebar-link" id="nav-slow-load" onclick="goTo('slow-load')">Pages load slowly</a>
+    <a class="sidebar-link" id="nav-search-slow" onclick="goTo('search-slow')">Search is slow or missing results</a>
+    <a class="sidebar-link" id="nav-editor-lag" onclick="goTo('editor-lag')">Editor is unresponsive</a>
+  </div>
+
+  <div class="sidebar-section">
+    <span class="sidebar-section-label">Permissions & Access</span>
+    <a class="sidebar-link" id="nav-cant-access" onclick="goTo('cant-access')">Can't access a page</a>
+    <a class="sidebar-link" id="nav-cant-share" onclick="goTo('cant-share')">Can't share with a user</a>
+    <a class="sidebar-link" id="nav-wrong-role" onclick="goTo('wrong-role')">Member has wrong permissions</a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title">Flowdesk · Troubleshooting guide</span>
+    <span class="topbar-pill">Writing sample</span>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="doc-section" id="overview">
+    <span class="section-eyebrow">Overview</span>
+    <h1>Troubleshooting Flowdesk</h1>
+    <p>This guide helps you diagnose and resolve common issues in Flowdesk — a fictional collaborative workspace tool. Each section covers a specific problem: what you'll see, what's likely causing it, and how to fix it step by step.</p>
+    <p>Issues are organized by category. If you're not sure where to start, check <a onclick="goTo('before')" style="color:var(--accent);cursor:pointer;">Before you start</a> for general diagnostic steps that resolve most problems.</p>
+    <div class="callout callout-note">
+      <div>
+        <span class="callout-type">Note</span>
+        <p>This is a portfolio writing sample by Victor Chhoeun. Flowdesk is a fictional product. All content is illustrative and written to demonstrate troubleshooting documentation structure and style.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- BEFORE YOU START -->
+  <section class="doc-section" id="before">
+    <span class="section-eyebrow">Overview</span>
+    <h2>Before you start</h2>
+    <p>Run through these steps before diving into a specific issue. They resolve the majority of Flowdesk problems and take less than two minutes.</p>
+
+    <div style="display:flex;flex-direction:column;gap:0.75rem;margin-bottom:1.5rem;">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <strong>Refresh the page.</strong>
+          <p>Most display and loading issues resolve with a hard refresh. Press <span class="ic">Ctrl+Shift+R</span> on Windows or <span class="ic">Cmd+Shift+R</span> on Mac.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <strong>Check your internet connection.</strong>
+          <p>Flowdesk requires a stable connection. Open another site to confirm you're online.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <strong>Check the Flowdesk status page.</strong>
+          <p>If Flowdesk is experiencing an outage, the issue isn't on your end. Visit <span class="ic">status.flowdesk.io</span> to check current service health.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <strong>Clear your browser cache.</strong>
+          <p>Stale cached data can cause unexpected behavior. Clear your cache in your browser settings, then reload Flowdesk.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <strong>Try a different browser or incognito window.</strong>
+          <p>If the issue disappears, a browser extension is likely interfering. Disable extensions one by one to identify the cause.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-tip">
+      <div>
+        <span class="callout-type">Tip</span>
+        <p>Flowdesk works best in the latest version of Chrome, Firefox, or Edge. If you're on an older browser version, update it before troubleshooting further.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- ERROR CODE REFERENCE -->
+  <section class="doc-section" id="error-ref">
+    <span class="section-eyebrow">Overview</span>
+    <h2>Error code reference</h2>
+    <p>If Flowdesk displays an error code, use this table to identify what it means and where to go next.</p>
+    <table class="ref-table">
+      <thead><tr><th>Error code</th><th>Meaning</th><th>Where to look</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="error-code">AUTH_001</span></td>
+          <td><span class="error-meaning">Invalid credentials</span></td>
+          <td>Check your email and password. See <a onclick="goTo('cant-sign-in')" style="color:var(--accent);cursor:pointer;">Can't sign in</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">AUTH_002</span></td>
+          <td><span class="error-meaning">API key invalid or expired</span></td>
+          <td>Regenerate your key. See <a onclick="goTo('api-key')" style="color:var(--accent);cursor:pointer;">API key rejected</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">AUTH_003</span></td>
+          <td><span class="error-meaning">Session expired</span></td>
+          <td>Sign in again. See <a onclick="goTo('session')" style="color:var(--accent);cursor:pointer;">Frequent sign-outs</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">PERM_001</span></td>
+          <td><span class="error-meaning">Insufficient permissions</span></td>
+          <td>Contact your workspace admin. See <a onclick="goTo('cant-access')" style="color:var(--accent);cursor:pointer;">Can't access a page</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">PERM_002</span></td>
+          <td><span class="error-meaning">Sharing restricted by workspace policy</span></td>
+          <td>See <a onclick="goTo('cant-share')" style="color:var(--accent);cursor:pointer;">Can't share with a user</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">NET_001</span></td>
+          <td><span class="error-meaning">Connection timeout</span></td>
+          <td>Check your connection. See <a onclick="goTo('before')" style="color:var(--accent);cursor:pointer;">Before you start</a>.</td>
+        </tr>
+        <tr>
+          <td><span class="error-code">PERF_001</span></td>
+          <td><span class="error-meaning">Request rate limit exceeded</span></td>
+          <td>Wait 60 seconds and retry. See <a onclick="goTo('slow-load')" style="color:var(--accent);cursor:pointer;">Pages load slowly</a>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr />
+
+  <!-- CONNECTION & AUTH -->
+  <section class="doc-section" id="cant-sign-in">
+    <span class="section-eyebrow">Connection & Authentication</span>
+    <h2>Can't sign in</h2>
+    <p>If you can't sign in to Flowdesk, use the steps below to identify and fix the issue. Most sign-in problems are caused by incorrect credentials, an expired account, or SSO configuration issues.</p>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-red">🔑</div>
+        <span class="issue-title">Incorrect email or password</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">"Incorrect email or password" message appears after entering credentials.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Password entered incorrectly, or the account uses SSO and doesn't have a Flowdesk password.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Reset your password or sign in via your SSO provider.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check that Caps Lock is off</strong> and re-enter your password carefully.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Select Forgot password</strong> on the sign-in page. Enter your email address and follow the reset instructions sent to your inbox.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check your spam folder</strong> if the reset email doesn't arrive within 5 minutes.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>If your workspace uses SSO</strong> (Google, Okta, or Microsoft), select your SSO provider on the sign-in page instead of entering a password.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-red">🚫</div>
+        <span class="issue-title">Account locked or deactivated</span>
+        <span class="issue-badge badge-auth">Auth</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">"Account locked" or "Your account has been deactivated" message on sign-in.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Five or more failed sign-in attempts trigger a temporary lock. Admins can also manually deactivate accounts.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Wait 30 minutes for a locked account to unlock, or contact your workspace admin to reactivate your account.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>If locked:</strong> wait 30 minutes, then try signing in again.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>If deactivated:</strong> contact your workspace admin and ask them to reactivate your account in <strong>Settings → Members</strong>.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>If you are the admin</strong> and are locked out, contact Flowdesk Support with proof of ownership to regain access.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-amber">⚙️</div>
+        <span class="issue-title">SSO sign-in fails or loops</span>
+        <span class="issue-badge badge-auth">Auth</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Redirected to SSO provider but returned to sign-in page without signing in, or an error appears from the SSO provider.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Misconfigured SSO settings, email domain mismatch, or the SSO provider isn't returning the expected attributes.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Verify SSO configuration in workspace settings or contact your IT administrator.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Confirm your email domain</strong> matches the domain configured for SSO in your workspace. Domains are set in <strong>Settings → Security → SSO</strong>.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Clear cookies and cached data</strong> for both Flowdesk and your SSO provider's domain, then try again.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check the SSO error message</strong> from your provider — it usually contains a specific error code your IT admin can investigate.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Ask a workspace admin</strong> to verify that the SSO callback URL in your provider matches exactly: <span class="ic">https://app.flowdesk.io/auth/sso/callback</span></div></div>
+        </div>
+        <div class="callout callout-note">
+          <div><span class="callout-type">Note</span><p>SSO issues require admin access to resolve. If you're not a workspace admin, share this article with your IT team.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- API KEY -->
+  <section class="doc-section" id="api-key">
+    <span class="section-eyebrow">Connection & Authentication</span>
+    <h2>API key rejected</h2>
+    <p>If your API requests return a <span class="ic">401 Unauthorized</span> error, your API key is likely invalid, expired, or missing from the request.</p>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-red">🔐</div>
+        <span class="issue-title">401 Unauthorized on every request</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Every API request returns <span class="ic">401</span> with <span class="ic">"unauthorized"</span> or <span class="ic">"invalid_key"</span> in the error body.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The API key is missing from the header, formatted incorrectly, or has been revoked.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Verify the key is present and correctly formatted in the Authorization header.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check that your request includes the Authorization header</strong> with the correct format:</div></div>
+          <div class="code-block">
+            <div class="code-block-header"><span class="code-lang">Header format</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-content"><span class="kw">Authorization</span>: Bearer YOUR_API_KEY</div>
+          </div>
+          <div class="step-row" style="margin-top:0.85rem;"><div class="step-num">2</div><div class="step-content"><strong>Confirm you're using the correct key type.</strong> Test keys (<span class="ic">fd_test_</span>) only work against the sandbox environment. Live keys (<span class="ic">fd_live_</span>) are required for production.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check that the key hasn't been revoked.</strong> Go to <strong>Settings → Developer → API keys</strong> and confirm your key shows as Active.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>If the key is revoked or missing, generate a new one</strong> in <strong>Settings → Developer → API keys → Create key</strong>. Update your application with the new key.</div></div>
+        </div>
+        <div class="callout callout-warning">
+          <div><span class="callout-type">Warning</span><p>Never paste your API key directly into code that will be committed to a public repository. Use environment variables to store keys securely.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-amber">⏱</div>
+        <span class="issue-title">Key worked before but now returns 401</span>
+        <span class="issue-badge badge-auth">Auth</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">API key was working, then started returning <span class="ic">401</span> without any changes on your end.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Key was manually revoked by a workspace admin, or the workspace plan was downgraded and API access was removed.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Check the key's status and your workspace plan in Settings.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Go to Settings → Developer → API keys</strong> and check the status of your key. If it shows Revoked, create a new key.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Check your workspace plan.</strong> API access requires a Pro or Enterprise plan. Go to <strong>Settings → Billing</strong> to confirm your current plan.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check the audit log</strong> in <strong>Settings → Security → Audit log</strong> to see if an admin recently revoked the key.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- FREQUENT SIGN OUTS -->
+  <section class="doc-section" id="session">
+    <span class="section-eyebrow">Connection & Authentication</span>
+    <h2>Frequent sign-outs</h2>
+    <p>If Flowdesk signs you out repeatedly or more often than expected, the steps below will help identify and fix the cause.</p>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-amber">🔄</div>
+        <span class="issue-title">Signed out after a short time</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Returned to the sign-in screen after leaving Flowdesk idle, even for a short time.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Your workspace has a short session timeout configured, or your browser is set to clear cookies on close.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Check workspace session settings, or adjust your browser's cookie behavior.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check your browser's cookie settings.</strong> If your browser clears cookies on close, your Flowdesk session will end every time you close the browser window.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>If you're a workspace admin,</strong> go to <strong>Settings → Security → Session timeout</strong> and increase the session duration.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Enable Stay signed in</strong> on the Flowdesk sign-in page. This extends your session to 30 days on trusted devices.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Avoid using incognito or private browsing.</strong> Session cookies don't persist between private windows, so you'll be signed out every time you close the window.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- SLOW PAGES -->
+  <section class="doc-section" id="slow-load">
+    <span class="section-eyebrow">Performance</span>
+    <h2>Pages load slowly</h2>
+    <p>Slow page loads in Flowdesk are usually caused by a slow network connection, a very large page, or a temporary spike in service load. Use the steps below to identify and reduce the impact.</p>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-blue">🐌</div>
+        <span class="issue-title">All pages load slowly</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Every page in Flowdesk takes several seconds to load or displays a spinning indicator for a long time.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Slow or unstable internet connection, or Flowdesk is experiencing elevated response times.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Test your connection speed and check the Flowdesk status page.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Test your connection speed</strong> using a speed test tool. Flowdesk requires a minimum of 5 Mbps for a smooth experience.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Check status.flowdesk.io</strong> to see if Flowdesk is experiencing elevated response times or an ongoing incident.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Switch to a wired connection</strong> if possible. Wi-Fi interference can cause inconsistent speeds that affect real-time apps like Flowdesk.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Close unused browser tabs and extensions.</strong> Heavy browser usage reduces the memory available to Flowdesk.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-blue">📄</div>
+        <span class="issue-title">One specific page loads slowly</span>
+        <span class="issue-badge badge-perf">Performance</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">One page is noticeably slower than others. Other pages in the same workspace load at normal speed.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The page contains a large amount of content, many embedded files, or a deeply nested sub-page structure.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Reduce the page's content size by splitting it into sub-pages or removing unused embedded files.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check how many embedded files the page contains.</strong> Each embedded image, video, or file adds to load time. Remove files that are no longer needed.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Split large pages into sub-pages.</strong> Pages with more than 5,000 words or 20+ embedded files benefit significantly from being broken up.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Remove deeply nested sub-pages.</strong> Flowdesk renders sub-page previews on parent pages. More than three levels of nesting can noticeably slow rendering.</div></div>
+        </div>
+        <div class="callout callout-tip">
+          <div><span class="callout-type">Tip</span><p>Keep frequently accessed pages lean. Move reference material or archives to a dedicated section of your workspace to keep working pages fast.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- SEARCH SLOW -->
+  <section class="doc-section" id="search-slow">
+    <span class="section-eyebrow">Performance</span>
+    <h2>Search is slow or missing results</h2>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-blue">🔍</div>
+        <span class="issue-title">Search results are incomplete or missing</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">A page you know exists doesn't appear in search results, or results are significantly out of date.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The page was recently created or edited and the search index hasn't updated yet. New content can take up to 5 minutes to appear in search.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Wait 5 minutes and search again. If the issue persists, check the page's permissions.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Wait 5 minutes</strong> after creating or editing a page, then search again. Search indexes update every few minutes.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Check that you have access to the page.</strong> Search only returns pages you have permission to view. If the page is restricted, it won't appear in your results even if it exists.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check that the page isn't archived.</strong> Archived pages are excluded from search results by default. To include them, add <span class="ic">archived:true</span> to your search query.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Try a broader search term.</strong> Flowdesk search matches exact words and common variations, but doesn't support fuzzy matching. Use a shorter, more general keyword.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- EDITOR LAG -->
+  <section class="doc-section" id="editor-lag">
+    <span class="section-eyebrow">Performance</span>
+    <h2>Editor is unresponsive</h2>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-blue">⌨️</div>
+        <span class="issue-title">Typing is delayed or the editor freezes</span>
+        <span class="issue-badge badge-perf">Performance</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">There is a visible delay between typing and characters appearing, or the editor freezes entirely for a few seconds.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">Low device memory, a very large page, or a browser extension interfering with the editor's event handling.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Close background tabs, disable extensions, or split the page into smaller sub-pages.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Close unused browser tabs.</strong> Each open tab consumes memory. Closing tabs frees up resources for Flowdesk's editor.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Open Flowdesk in an incognito window</strong> to rule out browser extension interference. If the editor is responsive in incognito, disable extensions one by one to find the culprit.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Reload the page</strong> with <span class="ic">Ctrl+Shift+R</span> or <span class="ic">Cmd+Shift+R</span> to clear any memory leaks from a long editing session.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>If the page is very long,</strong> consider splitting it into sub-pages. Pages over 10,000 words can cause editor performance to degrade.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- CANT ACCESS PAGE -->
+  <section class="doc-section" id="cant-access">
+    <span class="section-eyebrow">Permissions & Access</span>
+    <h2>Can't access a page</h2>
+    <p>If you receive a "You don't have access" message when opening a page, the page is either restricted to specific members, or you don't have the right role in the workspace.</p>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-red">🔒</div>
+        <span class="issue-title">"You don't have access" error on a page</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Opening a shared link shows "You don't have access to this page" even though you're signed in.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The page is restricted to specific members, or the sharing link has expired or been revoked.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Ask the page owner to share the page directly with you, or grant you access from the page's share settings.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Confirm you're signed in to the correct account.</strong> If you have multiple Flowdesk accounts, you may be signed in to one that doesn't have access.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Ask the page owner</strong> to open the page, select <strong>Share</strong>, and add your email address with at least Viewer access.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>If you should have workspace-wide access,</strong> ask a workspace admin to check your member role in <strong>Settings → Members</strong> and confirm it's set to Member or higher.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>Check that the sharing link hasn't expired.</strong> Links set to expire automatically will stop working after the expiry date.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- CANT SHARE -->
+  <section class="doc-section" id="cant-share">
+    <span class="section-eyebrow">Permissions & Access</span>
+    <h2>Can't share with a user</h2>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-amber">📤</div>
+        <span class="issue-title">User's email isn't found when sharing</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">Typing a user's email in the share dialog shows "No user found" or the email doesn't autocomplete.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The user isn't a member of the workspace, or the workspace restricts sharing to specific email domains.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Invite the user to the workspace first, or check whether domain restrictions are blocking the share.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check that the email address is correct.</strong> A typo will prevent the user from being found.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Invite the user to the workspace</strong> before sharing. Go to <strong>Settings → Members → Invite member</strong> and send an invite to their email. Once they accept, you can share pages with them.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Check domain restrictions.</strong> If your workspace restricts sharing to approved domains, go to <strong>Settings → Security → Sharing</strong> and confirm the user's domain is on the allowlist.</div></div>
+        </div>
+        <div class="callout callout-note">
+          <div><span class="callout-type">Note</span><p>Only workspace admins can modify domain restrictions or invite members from outside an approved domain.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-red">🚫</div>
+        <span class="issue-title">Share button is greyed out or missing</span>
+        <span class="issue-badge badge-auth">Permissions</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">The Share button on a page is greyed out, disabled, or not visible at all.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">You have Viewer access to the page, which doesn't include sharing permissions. Only Editors and Owners can share.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Ask the page owner to upgrade your access level to Editor or Owner.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Check your access level</strong> by selecting the <strong>Share</strong> button. Your current permission level is shown next to your name.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Ask the page owner</strong> to change your access from Viewer to Editor or Owner from the Share dialog.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>If you're a workspace admin</strong> and believe you should have full access, go to <strong>Settings → Security → Permissions</strong> and confirm that admin override is enabled for your workspace.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- WRONG ROLE -->
+  <section class="doc-section" id="wrong-role">
+    <span class="section-eyebrow">Permissions & Access</span>
+    <h2>Member has wrong permissions</h2>
+
+    <div class="issue-card">
+      <div class="issue-header" onclick="toggleIssue(this)">
+        <div class="issue-icon icon-amber">👤</div>
+        <span class="issue-title">A member can't do something their role should allow</span>
+        <span class="issue-badge badge-common">Most common</span>
+        <span class="issue-toggle">▼</span>
+      </div>
+      <div class="issue-body">
+        <div class="scf-grid">
+          <div class="scf-col"><span class="scf-label label-symptom">Symptom</span><p class="scf-text">A member reports they can't perform an action — editing, deleting, or sharing — that their role should permit.</p></div>
+          <div class="scf-col"><span class="scf-label label-cause">Likely cause</span><p class="scf-text">The member's workspace role is correct, but their access to the specific page is set to a lower permission level, overriding their workspace role.</p></div>
+          <div class="scf-col"><span class="scf-label label-fix">Resolution</span><p class="scf-text">Check and update the member's page-level permissions in the Share dialog for that specific page.</p></div>
+        </div>
+        <div>
+          <span class="steps-label">Steps to resolve</span>
+          <div class="step-row"><div class="step-num">1</div><div class="step-content"><strong>Confirm the member's workspace role</strong> in <strong>Settings → Members</strong>. The role displayed there is their workspace-wide default.</div></div>
+          <div class="step-row"><div class="step-num">2</div><div class="step-content"><strong>Open the specific page</strong> they can't access and select <strong>Share</strong>. Find the member's name in the list and check their page-level access. Page-level settings override workspace role settings.</div></div>
+          <div class="step-row"><div class="step-num">3</div><div class="step-content"><strong>Update their page-level access</strong> to the appropriate level — Viewer, Editor, or Owner — depending on what they need to do.</div></div>
+          <div class="step-row"><div class="step-num">4</div><div class="step-content"><strong>If the issue affects many pages,</strong> consider updating their workspace role instead of adjusting individual page permissions. Workspace roles apply to all pages by default.</div></div>
+        </div>
+        <div class="callout callout-tip">
+          <div><span class="callout-type">Tip</span><p>Page-level permissions always take precedence over workspace roles. If a member has an Editor workspace role but Viewer access on a specific page, they'll only be able to view that page.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="doc-footer">
+    <div class="doc-footer-left">Written by Victor Chhoeun · Portfolio writing sample · Flowdesk is a fictional product</div>
+    <div class="doc-footer-right"><a href="index.html">← Back to portfolio</a></div>
+  </div>
+</main>
+
+<script>
+  function goTo(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    document.querySelectorAll('.sidebar-link').forEach(function(l) { l.classList.remove('active'); });
+    var nav = document.getElementById('nav-' + id);
+    if (nav) nav.classList.add('active');
+  }
+
+  function toggleIssue(header) {
+    var body = header.nextElementSibling;
+    var toggle = header.querySelector('.issue-toggle');
+    var isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    toggle.textContent = isOpen ? '▼' : '▲';
+  }
+
+  function copyCode(btn) {
+    var code = btn.closest('.code-block').querySelector('.code-content').innerText;
+    navigator.clipboard.writeText(code).then(function() {
+      btn.textContent = 'Copied!';
+      setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+    });
+  }
+
+  document.getElementById('nav-overview').classList.add('active');
+</script>
+</body>
+</html>

@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flowdesk API Reference — Victor Chhoeun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #0d0d0d;
+      --bg2:      #151515;
+      --bg3:      #1d1d1d;
+      --bg4:      #242424;
+      --line:     rgba(255,255,255,0.08);
+      --line2:    rgba(255,255,255,0.13);
+      --text:     #f0ede6;
+      --muted:    #8a8880;
+      --accent:   #c8b89a;
+      --accent2:  #e8dfd0;
+      --green:    #7eb88a;
+      --green-bg: rgba(126,184,138,0.08);
+      --red:      #d97b6c;
+      --red-bg:   rgba(217,123,108,0.08);
+      --blue:     #7aaed6;
+      --blue-bg:  rgba(122,174,214,0.08);
+      --amber:    #d4a853;
+      --amber-bg: rgba(212,168,83,0.08);
+
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans:  'Syne', system-ui, sans-serif;
+      --font-mono:  'DM Mono', monospace;
+
+      --sidebar-w: 260px;
+      --pad: 2.5rem;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    code { font-family: var(--font-mono); font-size: 0.82em; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--bg2);
+      border-right: 1px solid var(--line);
+      padding: 2rem 0;
+      position: fixed;
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-logo {
+      padding: 0 1.5rem 1.75rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-logo .product {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--text);
+      display: block;
+    }
+
+    .sidebar-logo .version {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-top: 0.2rem;
+      display: block;
+    }
+
+    .sidebar-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      padding: 0 1.5rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .sidebar-back:hover { color: var(--accent); }
+
+    .sidebar-section {
+      padding: 0 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .sidebar-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      transition: color 0.15s, background 0.15s;
+      margin-bottom: 0.1rem;
+      cursor: pointer;
+    }
+
+    .sidebar-link:hover { color: var(--text); background: var(--bg3); }
+    .sidebar-link.active { color: var(--text); background: var(--bg3); }
+
+    .method-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 500;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .get  { background: var(--green-bg); color: var(--green); }
+    .post { background: var(--blue-bg);  color: var(--blue);  }
+    .put  { background: var(--amber-bg); color: var(--amber); }
+    .del  { background: var(--red-bg);   color: var(--red);   }
+
+    /* ── MAIN ── */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      max-width: 860px;
+      padding: var(--pad) calc(var(--pad) * 1.5);
+    }
+
+    /* ── TOP NAV ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topbar-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .topbar-pills {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.7rem;
+      border-radius: 100px;
+      border: 1px solid var(--line2);
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .pill:hover, .pill.active { color: var(--accent); border-color: rgba(200,184,154,0.35); }
+
+    /* ── SECTIONS ── */
+    .doc-section {
+      margin-bottom: 4rem;
+      scroll-margin-top: 2rem;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: 2.4rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    h3 {
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+
+    /* ── ENDPOINT CARD ── */
+    .endpoint {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg2);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .endpoint-header:hover { background: var(--bg3); }
+
+    .endpoint-method {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.25rem 0.65rem;
+      border-radius: 5px;
+      letter-spacing: 0.06em;
+      flex-shrink: 0;
+    }
+
+    .endpoint-path {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .endpoint-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .endpoint-toggle {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    .endpoint-body {
+      padding: 1.25rem;
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .endpoint-body.open { display: flex; }
+
+    /* ── PARAMS TABLE ── */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .param-table th {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      font-weight: 400;
+    }
+
+    .param-table td {
+      padding: 0.65rem 0.75rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .param-table tr:last-child td { border-bottom: none; }
+
+    .param-name {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text);
+    }
+
+    .param-type {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--blue);
+    }
+
+    .required-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--red);
+      border: 1px solid var(--red-bg);
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    .optional-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .code-block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg4);
+    }
+
+    .code-lang {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .copy-btn {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--line);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--accent); border-color: rgba(200,184,154,0.35); }
+
+    .code-content {
+      padding: 1.1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.8;
+      color: var(--text);
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .code-content .key   { color: var(--blue); }
+    .code-content .str   { color: var(--green); }
+    .code-content .num   { color: var(--amber); }
+    .code-content .cmnt  { color: var(--muted); }
+    .code-content .kw    { color: var(--accent); }
+
+    /* ── RESPONSE TABS ── */
+    .response-tabs { display: flex; gap: 0; border-bottom: 1px solid var(--line); margin-bottom: 1rem; }
+    .rtab {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s;
+    }
+    .rtab.active { color: var(--text); border-bottom-color: var(--accent); }
+    .rtab:hover:not(.active) { color: var(--text); }
+    .rblock { display: none; }
+    .rblock.active { display: block; }
+
+    /* ── CALLOUT ── */
+    .callout {
+      display: flex;
+      gap: 0.85rem;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .callout-info    { background: var(--blue-bg);  border: 1px solid rgba(122,174,214,0.2); color: var(--blue);  }
+    .callout-warning { background: var(--amber-bg); border: 1px solid rgba(212,168,83,0.2);  color: var(--amber); }
+    .callout-success { background: var(--green-bg); border: 1px solid rgba(126,184,138,0.2); color: var(--green); }
+
+    .callout-icon { flex-shrink: 0; font-size: 1rem; }
+    .callout p { color: inherit; margin: 0; font-size: 0.84rem; }
+
+    /* ── STATUS CODES ── */
+    .status-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .status-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.65rem 0.9rem;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      border: 1px solid var(--line);
+      background: var(--bg2);
+    }
+    .status-code {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      min-width: 42px;
+    }
+    .status-200 { color: var(--green); }
+    .status-201 { color: var(--green); }
+    .status-400 { color: var(--amber); }
+    .status-401 { color: var(--red); }
+    .status-404 { color: var(--red); }
+    .status-429 { color: var(--amber); }
+
+    .status-desc { color: var(--muted); line-height: 1.6; }
+
+    /* ── INLINE CODE ── */
+    .ic {
+      font-family: var(--font-mono);
+      font-size: 0.78em;
+      background: var(--bg3);
+      border: 1px solid var(--line);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    /* ── DIVIDER ── */
+    hr { border: none; border-top: 1px solid var(--line); margin: 3rem 0; }
+
+    /* ── FOOTER ── */
+    .doc-footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .doc-footer-left {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .doc-footer-right a {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .doc-footer-right a:hover { color: var(--accent2); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .main { margin-left: 0; padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="product">Flowdesk API</span>
+      <span class="version">v1.0 · REST</span>
+    </div>
+
+    <a href="index.html" class="sidebar-back">← Back to portfolio</a>
+
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Getting Started</span>
+      <a class="sidebar-link active" onclick="scrollTo('overview')">Overview</a>
+      <a class="sidebar-link" onclick="scrollTo('authentication')">Authentication</a>
+      <a class="sidebar-link" onclick="scrollTo('errors')">Errors & status codes</a>
+      <a class="sidebar-link" onclick="scrollTo('rate-limits')">Rate limits</a>
+    </div>
+
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Pages</span>
+      <a class="sidebar-link" onclick="scrollTo('pages')">
+        <span class="method-badge get">GET</span> List pages
+      </a>
+      <a class="sidebar-link" onclick="scrollTo('pages')">
+        <span class="method-badge post">POST</span> Create page
+      </a>
+      <a class="sidebar-link" onclick="scrollTo('pages')">
+        <span class="method-badge put">PUT</span> Update page
+      </a>
+      <a class="sidebar-link" onclick="scrollTo('pages')">
+        <span class="method-badge del">DEL</span> Delete page
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Workspaces</span>
+      <a class="sidebar-link" onclick="scrollTo('workspaces')">
+        <span class="method-badge get">GET</span> Get workspace
+      </a>
+      <a class="sidebar-link" onclick="scrollTo('workspaces')">
+        <span class="method-badge get">GET</span> List members
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Notifications</span>
+      <a class="sidebar-link" onclick="scrollTo('notifications')">
+        <span class="method-badge post">POST</span> Send notification
+      </a>
+      <a class="sidebar-link" onclick="scrollTo('notifications')">
+        <span class="method-badge get">GET</span> List notifications
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="topbar">
+      <span class="topbar-title">Flowdesk API Reference</span>
+      <div class="topbar-pills">
+        <span class="pill active">REST</span>
+        <span class="pill">v1.0</span>
+      </div>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section class="doc-section" id="overview">
+      <span class="section-eyebrow">Introduction</span>
+      <h1>Flowdesk API</h1>
+      <p>
+        The Flowdesk API lets you integrate Flowdesk's workspace, page, and notification 
+        features directly into your own applications. Use it to automate content creation, 
+        sync data across tools, or build custom workflows for your team.
+      </p>
+      <p>
+        All API requests are made over HTTPS and return JSON. The base URL for all endpoints is:
+      </p>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">Base URL</span>
+        </div>
+        <div class="code-content"><span class="str">https://api.flowdesk.io/v1</span></div>
+      </div>
+
+      <div class="callout callout-info">
+        <span class="callout-icon">ℹ</span>
+        <p>This is a sample API reference created as a portfolio writing sample. Flowdesk is a fictional product. All endpoints, data, and examples are illustrative.</p>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- AUTHENTICATION -->
+    <section class="doc-section" id="authentication">
+      <span class="section-eyebrow">Authentication</span>
+      <h2>Authenticating requests</h2>
+      <p>
+        Flowdesk uses API keys to authenticate requests. You can generate and manage your 
+        API keys from your workspace's <strong>Settings → Developer</strong> page.
+      </p>
+      <p>
+        Include your API key in the <span class="ic">Authorization</span> header of every request 
+        using the <span class="ic">Bearer</span> scheme.
+      </p>
+
+      <div class="code-block" style="margin-bottom:1.25rem;">
+        <div class="code-block-header">
+          <span class="code-lang">Example request header</span>
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+        <div class="code-content"><span class="kw">Authorization</span>: Bearer fd_live_a1B2c3D4e5F6g7H8i9J0</div>
+      </div>
+
+      <div class="callout callout-warning">
+        <span class="callout-icon">⚠</span>
+        <p>Keep your API key secret. Do not expose it in client-side code, public repositories, or anywhere it could be accessed by others. Rotate your key immediately if it is compromised.</p>
+      </div>
+
+      <h3>API key types</h3>
+      <table class="param-table" style="margin-top:0.75rem;">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Prefix</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="param-name">Live key</span></td>
+            <td><span class="param-type">fd_live_</span></td>
+            <td>For production use. Actions performed with this key are real and permanent.</td>
+          </tr>
+          <tr>
+            <td><span class="param-name">Test key</span></td>
+            <td><span class="param-type">fd_test_</span></td>
+            <td>For development and testing. All data is sandboxed and will not affect your live workspace.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <hr />
+
+    <!-- PAGES -->
+    <section class="doc-section" id="pages">
+      <span class="section-eyebrow">Pages</span>
+      <h2>Pages</h2>
+      <p>
+        Pages are the core content unit in Flowdesk. A page belongs to a workspace and can 
+        contain rich text, embedded media, and nested sub-pages. Use these endpoints to 
+        create, retrieve, update, and delete pages programmatically.
+      </p>
+
+      <!-- LIST PAGES -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method get">GET</span>
+          <span class="endpoint-path">/pages</span>
+          <span class="endpoint-desc">List all pages in a workspace</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Query parameters</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">workspace_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The unique ID of the workspace to retrieve pages from.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">limit</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Number of pages to return. Defaults to <span class="ic">20</span>. Max is <span class="ic">100</span>.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">cursor</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Pagination cursor returned by a previous request. Used to retrieve the next page of results.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">archived</span></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>If <span class="ic">true</span>, returns only archived pages. Defaults to <span class="ic">false</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X GET \
+  <span class="str">"https://api.flowdesk.io/v1/pages?workspace_id=ws_abc123&limit=10"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span></div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'p-list-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'p-list-401')">401 Unauthorized</span>
+            </div>
+            <div class="rblock active" id="p-list-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"object"</span>: <span class="str">"list"</span>,
+  <span class="key">"results"</span>: [
+    {
+      <span class="key">"id"</span>:         <span class="str">"pg_7xK2mNpQ"</span>,
+      <span class="key">"object"</span>:     <span class="str">"page"</span>,
+      <span class="key">"title"</span>:      <span class="str">"Product Roadmap Q3"</span>,
+      <span class="key">"created_at"</span>: <span class="str">"2024-08-01T09:14:00Z"</span>,
+      <span class="key">"updated_at"</span>: <span class="str">"2024-08-12T16:45:00Z"</span>,
+      <span class="key">"archived"</span>:   <span class="num">false</span>,
+      <span class="key">"created_by"</span>: <span class="str">"usr_9aR3bTcU"</span>
+    }
+  ],
+  <span class="key">"next_cursor"</span>: <span class="str">"crs_mX4nYpZ8"</span>,
+  <span class="key">"has_more"</span>:    <span class="num">true</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="p-list-401">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"unauthorized"</span>,
+    <span class="key">"message"</span>: <span class="str">"Invalid or missing API key."</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CREATE PAGE -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method post">POST</span>
+          <span class="endpoint-path">/pages</span>
+          <span class="endpoint-desc">Create a new page</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Request body</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">workspace_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The ID of the workspace where the page will be created.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">title</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The title of the new page. Max 255 characters.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">content</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Initial body content for the page in Markdown format.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">parent_id</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>The ID of a parent page. If provided, the new page is created as a sub-page.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X POST \
+  <span class="str">"https://api.flowdesk.io/v1/pages"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d '{
+    <span class="key">"workspace_id"</span>: <span class="str">"ws_abc123"</span>,
+    <span class="key">"title"</span>:        <span class="str">"Meeting Notes — August"</span>,
+    <span class="key">"content"</span>:      <span class="str">"## Agenda\n- Q3 review\n- Roadmap planning"</span>
+  }'</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'p-create-201')">201 Created</span>
+              <span class="rtab" onclick="switchTab(this, 'p-create-400')">400 Bad Request</span>
+            </div>
+            <div class="rblock active" id="p-create-201">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"id"</span>:           <span class="str">"pg_3wL8nRpT"</span>,
+  <span class="key">"object"</span>:       <span class="str">"page"</span>,
+  <span class="key">"title"</span>:        <span class="str">"Meeting Notes — August"</span>,
+  <span class="key">"content"</span>:      <span class="str">"## Agenda\n- Q3 review\n- Roadmap planning"</span>,
+  <span class="key">"workspace_id"</span>: <span class="str">"ws_abc123"</span>,
+  <span class="key">"parent_id"</span>:    <span class="num">null</span>,
+  <span class="key">"archived"</span>:     <span class="num">false</span>,
+  <span class="key">"created_at"</span>:   <span class="str">"2024-08-14T11:02:33Z"</span>,
+  <span class="key">"created_by"</span>:   <span class="str">"usr_9aR3bTcU"</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="p-create-400">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"invalid_request"</span>,
+    <span class="key">"message"</span>: <span class="str">"The 'title' field is required."</span>,
+    <span class="key">"param"</span>:   <span class="str">"title"</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- NOTIFICATIONS -->
+    <section class="doc-section" id="notifications">
+      <span class="section-eyebrow">Notifications</span>
+      <h2>Notifications</h2>
+      <p>
+        Use the Notifications API to send in-app alerts to workspace members — for example, 
+        notifying a team when a page is updated, a task is assigned, or an external event occurs.
+      </p>
+
+      <!-- SEND NOTIFICATION -->
+      <div class="endpoint">
+        <div class="endpoint-header" onclick="toggleEndpoint(this)">
+          <span class="endpoint-method post">POST</span>
+          <span class="endpoint-path">/notifications</span>
+          <span class="endpoint-desc">Send a notification to one or more users</span>
+          <span class="endpoint-toggle">▼</span>
+        </div>
+        <div class="endpoint-body">
+          <div>
+            <h3>Request body</h3>
+            <table class="param-table">
+              <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">recipient_ids</span></td>
+                  <td><span class="param-type">array</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>An array of user IDs to send the notification to. Max 50 recipients per request.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">message</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="required-badge">required</span></td>
+                  <td>The notification message body. Max 500 characters. Plain text only.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">link_url</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>A URL to attach to the notification. When clicked, the user is taken to this destination.</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">type</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="optional-badge">optional</span></td>
+                  <td>Notification type. One of <span class="ic">info</span>, <span class="ic">success</span>, or <span class="ic">alert</span>. Defaults to <span class="ic">info</span>.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <h3>Example request</h3>
+            <div class="code-block">
+              <div class="code-block-header">
+                <span class="code-lang">cURL</span>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+              </div>
+              <div class="code-content"><span class="kw">curl</span> -X POST \
+  <span class="str">"https://api.flowdesk.io/v1/notifications"</span> \
+  -H <span class="str">"Authorization: Bearer fd_live_a1B2c3D4e5F6"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d '{
+    <span class="key">"recipient_ids"</span>: [<span class="str">"usr_9aR3bTcU"</span>, <span class="str">"usr_4kP1mQsV"</span>],
+    <span class="key">"message"</span>:        <span class="str">"Product Roadmap Q3 has been updated."</span>,
+    <span class="key">"link_url"</span>:       <span class="str">"https://app.flowdesk.io/pages/pg_7xK2mNpQ"</span>,
+    <span class="key">"type"</span>:           <span class="str">"info"</span>
+  }'</div>
+            </div>
+          </div>
+
+          <div>
+            <h3>Response</h3>
+            <div class="response-tabs">
+              <span class="rtab active" onclick="switchTab(this, 'n-send-200')">200 OK</span>
+              <span class="rtab" onclick="switchTab(this, 'n-send-400')">400 Bad Request</span>
+            </div>
+            <div class="rblock active" id="n-send-200">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"object"</span>:       <span class="str">"notification"</span>,
+  <span class="key">"id"</span>:           <span class="str">"ntf_5dM2nOpR"</span>,
+  <span class="key">"sent_to"</span>:      <span class="num">2</span>,
+  <span class="key">"type"</span>:         <span class="str">"info"</span>,
+  <span class="key">"message"</span>:      <span class="str">"Product Roadmap Q3 has been updated."</span>,
+  <span class="key">"created_at"</span>:   <span class="str">"2024-08-14T11:15:00Z"</span>
+}</div>
+              </div>
+            </div>
+            <div class="rblock" id="n-send-400">
+              <div class="code-block">
+                <div class="code-block-header"><span class="code-lang">JSON</span></div>
+                <div class="code-content">{
+  <span class="key">"error"</span>: {
+    <span class="key">"code"</span>:    <span class="str">"invalid_request"</span>,
+    <span class="key">"message"</span>: <span class="str">"'recipient_ids' must contain at least one user ID."</span>,
+    <span class="key">"param"</span>:   <span class="str">"recipient_ids"</span>
+  }
+}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- ERRORS -->
+    <section class="doc-section" id="errors">
+      <span class="section-eyebrow">Errors</span>
+      <h2>Errors & status codes</h2>
+      <p>
+        Flowdesk uses standard HTTP status codes to indicate whether a request succeeded or failed. 
+        All error responses return a JSON body with a <span class="ic">code</span> and a 
+        human-readable <span class="ic">message</span>.
+      </p>
+
+      <div class="status-list">
+        <div class="status-row">
+          <span class="status-code status-200">200</span>
+          <span class="status-desc"><strong style="color:var(--text)">OK</strong> — The request succeeded.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-code status-201">201</span>
+          <span class="status-desc"><strong style="color:var(--text)">Created</strong> — A new resource was successfully created.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-code status-400">400</span>
+          <span class="status-desc"><strong style="color:var(--text)">Bad Request</strong> — The request was malformed or missing required parameters. Check the <span class="ic">param</span> field in the error response for details.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-code status-401">401</span>
+          <span class="status-desc"><strong style="color:var(--text)">Unauthorized</strong> — Your API key is invalid, expired, or missing from the request header.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-code status-404">404</span>
+          <span class="status-desc"><strong style="color:var(--text)">Not Found</strong> — The requested resource does not exist or has been deleted.</span>
+        </div>
+        <div class="status-row">
+          <span class="status-code status-429">429</span>
+          <span class="status-desc"><strong style="color:var(--text)">Too Many Requests</strong> — You have exceeded the rate limit. Wait before retrying. See <a onclick="scrollTo('rate-limits')" style="color:var(--accent);cursor:pointer;">Rate limits</a> for details.</span>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- RATE LIMITS -->
+    <section class="doc-section" id="rate-limits">
+      <span class="section-eyebrow">Rate Limits</span>
+      <h2>Rate limits</h2>
+      <p>
+        To ensure reliability for all users, the Flowdesk API enforces rate limits 
+        on all endpoints. Limits are applied per API key on a rolling 60-second window.
+      </p>
+
+      <table class="param-table" style="margin-bottom:1.5rem;">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Requests / minute</th>
+            <th>Requests / day</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="param-name">Free</span></td>
+            <td><span class="param-type">60</span></td>
+            <td><span class="param-type">1,000</span></td>
+          </tr>
+          <tr>
+            <td><span class="param-name">Pro</span></td>
+            <td><span class="param-type">300</span></td>
+            <td><span class="param-type">10,000</span></td>
+          </tr>
+          <tr>
+            <td><span class="param-name">Enterprise</span></td>
+            <td><span class="param-type">Unlimited</span></td>
+            <td><span class="param-type">Unlimited</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        When you exceed the rate limit, the API returns a <span class="ic">429</span> status. 
+        The response includes a <span class="ic">Retry-After</span> header indicating how many 
+        seconds to wait before making another request.
+      </p>
+
+      <div class="callout callout-success">
+        <span class="callout-icon">✓</span>
+        <p>Use the <span class="ic">X-RateLimit-Remaining</span> response header to track how many requests you have left in the current window before hitting the limit.</p>
+      </div>
+    </section>
+
+    <div class="doc-footer">
+      <div class="doc-footer-left">Written by Victor Chhoeun · Portfolio writing sample</div>
+      <div class="doc-footer-right"><a href="index.html">← Back to portfolio</a></div>
+    </div>
+
+  </main>
+
+  <script>
+    function toggleEndpoint(header) {
+      const body = header.nextElementSibling;
+      const toggle = header.querySelector('.endpoint-toggle');
+      const isOpen = body.classList.contains('open');
+      body.classList.toggle('open', !isOpen);
+      toggle.textContent = isOpen ? '▼' : '▲';
+    }
+
+    function switchTab(tab, targetId) {
+      const container = tab.closest('.endpoint-body') || tab.closest('.doc-section');
+      container.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+      container.querySelectorAll('.rblock').forEach(b => b.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(targetId).classList.add('active');
+    }
+
+    function scrollTo(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+    }
+
+    function copyCode(btn) {
+      const code = btn.closest('.code-block').querySelector('.code-content').innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

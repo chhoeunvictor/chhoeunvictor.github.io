@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vertex Flow Content Style Guide · Victor Chhoeun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Syne:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0d; --bg2: #151515; --bg3: #1d1d1d; --bg4: #242424;
+      --line: rgba(255,255,255,0.08); --line2: rgba(255,255,255,0.13);
+      --text: #f0ede6; --muted: #8a8880; --accent: #c8b89a; --accent2: #e8dfd0;
+      --green: #7eb88a; --green-bg: rgba(126,184,138,0.08);
+      --red: #d97b6c; --red-bg: rgba(217,123,108,0.08);
+      --blue: #7aaed6; --blue-bg: rgba(122,174,214,0.08);
+      --amber: #d4a853; --amber-bg: rgba(212,168,83,0.08);
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'Syne', system-ui, sans-serif;
+      --font-mono: 'DM Mono', monospace;
+      --sidebar-w: 260px; --max-w: 860px; --pad: 2.5rem;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 15px; line-height: 1.7; -webkit-font-smoothing: antialiased; display: flex; min-height: 100vh; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 2px; }
+
+    .sidebar { width: var(--sidebar-w); min-height: 100vh; background: var(--bg2); border-right: 1px solid var(--line); padding: 2rem 0; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; overflow-y: auto; }
+    .sidebar-logo { padding: 0 1.5rem 1.75rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
+    .sidebar-product { font-family: var(--font-serif); font-size: 1.1rem; color: var(--text); display: block; }
+    .sidebar-version { font-family: var(--font-mono); font-size: 0.62rem; color: var(--accent); letter-spacing: 0.1em; margin-top: 0.25rem; display: block; }
+    .sidebar-back { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); padding: 0 1.5rem; margin-bottom: 1.5rem; text-transform: uppercase; transition: color 0.2s; }
+    .sidebar-back:hover { color: var(--accent); }
+    .sidebar-section { padding: 0 1.5rem; margin-bottom: 1.75rem; }
+    .sidebar-section-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; display: block; }
+    .sidebar-link { display: flex; align-items: center; padding: 0.3rem 0.6rem; border-radius: 6px; font-size: 0.82rem; color: var(--muted); transition: color 0.15s, background 0.15s; margin-bottom: 0.1rem; cursor: pointer; }
+    .sidebar-link:hover { color: var(--text); background: var(--bg3); }
+    .sidebar-link.active { color: var(--text); background: var(--bg3); }
+
+    .main { margin-left: var(--sidebar-w); flex: 1; max-width: var(--max-w); padding: var(--pad) calc(var(--pad) * 1.5); }
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 3rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+    .topbar-title { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+    .topbar-pill { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em; color: var(--accent); border: 1px solid rgba(200,184,154,0.3); padding: 0.25rem 0.65rem; border-radius: 100px; }
+
+    .doc-section { margin-bottom: 4.5rem; scroll-margin-top: 2rem; }
+    .section-eyebrow { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: block; }
+    h1 { font-family: var(--font-serif); font-size: 2.4rem; font-weight: 400; color: var(--text); line-height: 1.15; margin-bottom: 1rem; }
+    h2 { font-family: var(--font-serif); font-size: 1.7rem; font-weight: 400; color: var(--text); line-height: 1.2; margin-bottom: 0.75rem; }
+    h3 { font-family: var(--font-sans); font-size: 0.92rem; font-weight: 600; color: var(--text); letter-spacing: 0.02em; margin-bottom: 0.5rem; margin-top: 2rem; }
+    h3:first-of-type { margin-top: 0.5rem; }
+    p { color: var(--muted); font-size: 0.92rem; line-height: 1.8; margin-bottom: 1rem; }
+    ul, ol { color: var(--muted); font-size: 0.92rem; line-height: 1.8; padding-left: 1.5rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.35rem; }
+    li strong { color: var(--text); }
+    hr { border: none; border-top: 1px solid var(--line); margin: 3.5rem 0; }
+    .ic { font-family: var(--font-mono); font-size: 0.78em; background: var(--bg3); border: 1px solid var(--line); padding: 0.1em 0.4em; border-radius: 4px; color: var(--accent); }
+
+    .callout { display: flex; gap: 1rem; padding: 1rem 1.25rem; border-radius: 6px; font-size: 0.88rem; line-height: 1.7; margin: 1.25rem 0; border-left: 3px solid; }
+    .callout-note { background: var(--blue-bg); border-color: var(--blue); color: var(--blue); }
+    .callout-caution { background: var(--amber-bg); border-color: var(--amber); color: var(--amber); }
+    .callout-warning { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+    .callout-inner { flex: 1; }
+    .callout-type { font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; }
+    .callout p { color: inherit; margin: 0; font-size: 0.85rem; }
+
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 1.25rem 0; }
+    .do-dont-col { background: var(--bg2); padding: 1.25rem 1.5rem; }
+    .do-dont-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1rem; display: block; }
+    .label-do { color: var(--green); } .label-dont { color: var(--red); }
+    .do-dont-item { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.9rem; font-size: 0.87rem; line-height: 1.6; }
+    .do-dont-item:last-child { margin-bottom: 0; }
+    .do-dot { width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; }
+    .dot-do { background: var(--green-bg); color: var(--green); border: 1px solid rgba(126,184,138,0.3); }
+    .dot-dont { background: var(--red-bg); color: var(--red); border: 1px solid rgba(217,123,108,0.3); }
+    .do-dont-text { color: var(--text); }
+    .do-dont-reason { color: var(--muted); font-size: 0.78rem; margin-top: 0.2rem; }
+
+    .term-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 1rem 0; }
+    .term-table th { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.6rem 1rem; border-bottom: 1px solid var(--line); font-weight: 400; }
+    .term-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); line-height: 1.65; }
+    .term-table tr:last-child td { border-bottom: none; }
+    .term-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .term-use { font-family: var(--font-mono); font-size: 0.8rem; color: var(--green); }
+    .term-avoid { font-family: var(--font-mono); font-size: 0.8rem; color: var(--red); text-decoration: line-through; text-decoration-color: rgba(217,123,108,0.5); }
+    .term-badge { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.08em; padding: 0.15rem 0.5rem; border-radius: 3px; display: inline-block; }
+    .badge-required { background: var(--blue-bg); color: var(--blue); border: 1px solid rgba(122,174,214,0.2); }
+    .badge-preferred { background: var(--green-bg); color: var(--green); border: 1px solid rgba(126,184,138,0.2); }
+    .badge-avoid { background: var(--red-bg); color: var(--red); border: 1px solid rgba(217,123,108,0.2); }
+
+    .example-block { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 1rem 0; }
+    .example-header { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--line); background: var(--bg3); }
+    .example-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .example-body { padding: 1.1rem 1.25rem; }
+    .example-body p { margin: 0; color: var(--text); font-size: 0.9rem; line-height: 1.75; }
+    .example-body p + p { margin-top: 0.6rem; }
+
+    .format-rule { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 1rem; }
+    .format-rule-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1.25rem; background: var(--bg2); border-bottom: 1px solid var(--line); }
+    .format-rule-title { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .format-rule-body { padding: 1.1rem 1.25rem; background: var(--bg); }
+    .format-rule-body p { margin: 0 0 0.75rem; font-size: 0.87rem; }
+    .format-rule-body p:last-child { margin: 0; }
+    .format-rule-body ul { margin: 0.5rem 0 0; }
+
+    .ui-pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin: 1.25rem 0; }
+    .ui-pattern-card { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    .ui-pattern-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--line); background: var(--bg3); display: flex; align-items: center; justify-content: space-between; }
+    .ui-pattern-name { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .ui-pattern-body { padding: 1.25rem; }
+    .ui-pattern-formula { font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent); background: var(--bg3); border: 1px solid var(--line); border-radius: 6px; padding: 0.5rem 0.75rem; margin-bottom: 0.85rem; }
+    .ui-example { font-size: 0.85rem; color: var(--text); margin-bottom: 0.4rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+    .ui-example-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+    .ui-note { font-size: 0.78rem; color: var(--muted); margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--line); line-height: 1.6; }
+
+    .procedure { background: var(--bg2); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 1rem 0; }
+    .procedure-header { padding: 0.65rem 1.25rem; background: var(--bg3); border-bottom: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+    .procedure-body { padding: 1.1rem 1.25rem; }
+    .procedure-step { display: flex; gap: 1rem; margin-bottom: 0.85rem; font-size: 0.87rem; color: var(--text); line-height: 1.65; }
+    .procedure-step:last-child { margin-bottom: 0; }
+    .step-num { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); background: var(--bg3); border: 1px solid var(--line); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+    .doc-footer { margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .doc-footer-left { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); }
+    .doc-footer-right a { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--accent); text-transform: uppercase; transition: color 0.2s; }
+    .doc-footer-right a:hover { color: var(--accent2); }
+
+    @media (max-width: 900px) { .sidebar { display: none; } .main { margin-left: 0; padding: 1.5rem; } .ui-pattern-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 600px) { .do-dont { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <span class="sidebar-product">Vertex Flow style guide</span>
+      <span class="sidebar-version">v1.4 · Google Cloud</span>
+    </div>
+    <a href="index.html" class="sidebar-back">← Back to portfolio</a>
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Overview</span>
+      <a class="sidebar-link active" onclick="scrollToSection('intro')">About this guide</a>
+      <a class="sidebar-link" onclick="scrollToSection('principles')">Writing principles</a>
+    </div>
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Voice & Tone</span>
+      <a class="sidebar-link" onclick="scrollToSection('voice')">Voice attributes</a>
+      <a class="sidebar-link" onclick="scrollToSection('tone')">Tone by context</a>
+      <a class="sidebar-link" onclick="scrollToSection('person')">Person & pronouns</a>
+    </div>
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Terminology</span>
+      <a class="sidebar-link" onclick="scrollToSection('terms')">Approved terms</a>
+      <a class="sidebar-link" onclick="scrollToSection('avoid')">Terms to avoid</a>
+    </div>
+    <div class="sidebar-section">
+      <span class="sidebar-section-label">Formatting</span>
+      <a class="sidebar-link" onclick="scrollToSection('capitalization')">Capitalization</a>
+      <a class="sidebar-link" onclick="scrollToSection('punctuation')">Punctuation</a>
+      <a class="sidebar-link" onclick="scrollToSection('numbers')">Numbers & dates</a>
+      <a class="sidebar-link" onclick="scrollToSection('procedures')">Procedures & steps</a>
+      <a class="sidebar-link" onclick="scrollToSection('callouts')">Notes & warnings</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <span class="topbar-title">Vertex Flow · Content style guide</span>
+      <span class="topbar-pill">Writing sample</span>
+    </div>
+
+    <!-- INTRO -->
+    <section class="doc-section" id="intro">
+      <span class="section-eyebrow">Overview</span>
+      <h1>Vertex Flow style guide</h1>
+      <p>This guide defines the content standards for Vertex Flow — a fictional Google Cloud data pipeline tool for ML engineers and data teams. It covers voice, terminology, formatting, and UI writing patterns for all product surfaces: console UI, API reference, Help Center, and release notes.</p>
+      <p>Follow this guide when writing any customer-facing content for Vertex Flow. When this guide conflicts with the Google developer documentation style guide, defer to the Google guide. Use this guide for Vertex Flow-specific conventions.</p>
+      <div class="callout callout-note">
+        <div class="callout-inner">
+          <span class="callout-type">Note</span>
+          <p>This is a portfolio writing sample by Victor Chhoeun. Vertex Flow is a fictional Google Cloud product. This guide demonstrates content strategy, voice governance, and Google-style documentation practice.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRINCIPLES -->
+    <section class="doc-section" id="principles">
+      <span class="section-eyebrow">Overview</span>
+      <h2>Writing principles</h2>
+      <p>Apply these principles to every piece of content you write for Vertex Flow.</p>
+      <ul>
+        <li><strong>Write for the task, not the feature.</strong> Users care about what they can do, not how the product is built. Lead with outcomes and actions.</li>
+        <li><strong>Use present tense.</strong> Write "the pipeline runs" not "the pipeline will run." Present tense is more direct and easier to scan.</li>
+        <li><strong>Use active voice.</strong> Write "Vertex Flow processes the data" not "the data is processed." Active voice identifies who does what.</li>
+        <li><strong>Be concise.</strong> Remove every word that doesn't earn its place. If a sentence works without a word, cut it.</li>
+        <li><strong>Be specific.</strong> Use exact names, values, and paths. "Click <strong>Save pipeline</strong>" is clearer than "save your work."</li>
+        <li><strong>Write for scanning.</strong> Use headings, numbered steps, and short paragraphs. Most users scan until they find what they need.</li>
+      </ul>
+    </section>
+
+    <hr />
+
+    <!-- VOICE -->
+    <section class="doc-section" id="voice">
+      <span class="section-eyebrow">Voice & Tone</span>
+      <h2>Voice attributes</h2>
+      <p>Vertex Flow's voice is consistent across all surfaces. It reflects Google Cloud's broader voice: knowledgeable, clear, and human — never cold, condescending, or overly casual.</p>
+      <div class="do-dont">
+        <div class="do-dont-col">
+          <span class="do-dont-label label-do">✓ Vertex Flow is</span>
+          <div class="do-dont-item"><div class="do-dot dot-do">✓</div><div><div class="do-dont-text">Clear and direct</div><div class="do-dont-reason">Lead with the most useful information. Get to the point.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-do">✓</div><div><div class="do-dont-text">Technically confident</div><div class="do-dont-reason">Users are engineers. Don't oversimplify — be accurate and precise.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-do">✓</div><div><div class="do-dont-text">Human and approachable</div><div class="do-dont-reason">Use contractions. Write the way a smart colleague talks, not the way a spec reads.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-do">✓</div><div><div class="do-dont-text">Action-oriented</div><div class="do-dont-reason">Every touchpoint moves the user toward a goal. No dead ends.</div></div></div>
+        </div>
+        <div class="do-dont-col">
+          <span class="do-dont-label label-dont">✕ Vertex Flow isn't</span>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Jargon-heavy or opaque</div><div class="do-dont-reason">Don't use internal product or engineering jargon that users won't recognize.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Overly formal or stiff</div><div class="do-dont-reason">Avoid "Please be advised," "utilize," or "in order to."</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Overcelebrating</div><div class="do-dont-reason">Don't add "Amazing!" to routine actions. Engineers find it patronizing.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Vague or noncommittal</div><div class="do-dont-reason">Avoid "might," "could potentially," or "in some cases" unless genuinely uncertain.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TONE BY CONTEXT -->
+    <section class="doc-section" id="tone">
+      <span class="section-eyebrow">Voice & Tone</span>
+      <h2>Tone by context</h2>
+      <p>The voice stays constant. The tone adapts to context. An engineer debugging a failed pipeline needs a different tone than one exploring a new feature for the first time.</p>
+
+      <h3>Console UI and product copy</h3>
+      <p>Tone: Direct, efficient, minimal. Users are in the middle of a task.</p>
+      <div class="example-block">
+        <div class="example-header"><span class="example-label">Example · console confirmation</span></div>
+        <div class="example-body"><p>Pipeline deployed. It's now running in <strong>us-central1</strong>.</p></div>
+      </div>
+
+      <h3>Error messages</h3>
+      <p>Tone: Calm, factual, and action-oriented. Give users what they need to recover — don't alarm them.</p>
+      <div class="example-block">
+        <div class="example-header"><span class="example-label">Example · pipeline error</span></div>
+        <div class="example-body"><p>The pipeline failed at the <strong>data-ingestion</strong> step. Check your source credentials and retry. If the issue persists, see <span style="color:var(--accent);">Troubleshoot pipeline errors</span>.</p></div>
+      </div>
+
+      <h3>Reference documentation</h3>
+      <p>Tone: Neutral, precise, and scannable. Eliminate editorial opinion entirely. Users are looking up facts.</p>
+      <div class="example-block">
+        <div class="example-header"><span class="example-label">Example · API parameter description</span></div>
+        <div class="example-body"><p><strong>pipeline_id</strong> (string, required): The unique identifier for the pipeline. The value must be 3–63 characters, start with a letter, and contain only lowercase letters, numbers, and hyphens.</p></div>
+      </div>
+
+      <h3>Onboarding and quickstart guides</h3>
+      <p>Tone: Warm, encouraging, and step-by-step. Users may be new to Google Cloud or Vertex Flow.</p>
+      <div class="example-block">
+        <div class="example-header"><span class="example-label">Example · quickstart introduction</span></div>
+        <div class="example-body"><p>This quickstart shows you how to create and run your first Vertex Flow pipeline. You'll connect a data source, configure a transformation step, and deploy the pipeline to Google Cloud. The process takes about 15 minutes.</p></div>
+      </div>
+    </section>
+
+    <!-- PERSON -->
+    <section class="doc-section" id="person">
+      <span class="section-eyebrow">Voice & Tone</span>
+      <h2>Person and pronouns</h2>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Use second person ("you")</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Address the user directly using "you." Don't use "the user," "they," or "one."</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Correct</span><div class="do-dont-text" style="font-size:0.87rem;">You can monitor pipeline runs in the <strong>Runs</strong> tab.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Incorrect</span><div class="do-dont-text" style="font-size:0.87rem;">Users can monitor pipeline runs in the Runs tab.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Use "we" sparingly — only when the system acts on the user's behalf</span><span class="term-badge badge-preferred">Preferred</span></div>
+        <div class="format-rule-body">
+          <div class="do-dont" style="margin-top:0.25rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Acceptable</span><div class="do-dont-text" style="font-size:0.87rem;">We'll send you an email when the pipeline finishes.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Avoid</span><div class="do-dont-text" style="font-size:0.87rem;">We recommend that you enable logging for all pipelines.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- TERMS -->
+    <section class="doc-section" id="terms">
+      <span class="section-eyebrow">Terminology</span>
+      <h2>Approved terms</h2>
+      <p>Use the following terms consistently across all Vertex Flow content. Inconsistent terminology creates confusion — especially for users who move between the console UI, API reference, and Help Center.</p>
+      <table class="term-table">
+        <thead><tr><th>Use this</th><th>Not this</th><th>Status</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><span class="term-use">pipeline</span></td><td><span class="term-avoid">workflow, job, process</span></td><td><span class="term-badge badge-required">Required</span></td><td>The core unit of work in Vertex Flow. Always lowercase unless starting a sentence.</td></tr>
+          <tr><td><span class="term-use">pipeline run</span></td><td><span class="term-avoid">execution, instance, invocation</span></td><td><span class="term-badge badge-required">Required</span></td><td>A single execution of a pipeline. Use "run" as both noun and verb.</td></tr>
+          <tr><td><span class="term-use">step</span></td><td><span class="term-avoid">node, task, component, stage</span></td><td><span class="term-badge badge-required">Required</span></td><td>An individual unit within a pipeline. "Component" is acceptable only in API docs.</td></tr>
+          <tr><td><span class="term-use">data source</span></td><td><span class="term-avoid">input, origin, upstream</span></td><td><span class="term-badge badge-required">Required</span></td><td>Where data enters the pipeline. Two words, no hyphen.</td></tr>
+          <tr><td><span class="term-use">artifact</span></td><td><span class="term-avoid">output, result, object</span></td><td><span class="term-badge badge-required">Required</span></td><td>Data or model outputs produced by a pipeline step. Aligns with Vertex AI terminology.</td></tr>
+          <tr><td><span class="term-use">sign in</span></td><td><span class="term-avoid">log in, log on, login</span></td><td><span class="term-badge badge-required">Required</span></td><td>Google convention. Always "sign in" (verb). "Sign-in" as adjective only.</td></tr>
+          <tr><td><span class="term-use">Google Cloud console</span></td><td><span class="term-avoid">GCP console, Cloud console, dashboard</span></td><td><span class="term-badge badge-required">Required</span></td><td>Use the full name on first mention. "The console" is acceptable in subsequent references.</td></tr>
+          <tr><td><span class="term-use">project</span></td><td><span class="term-avoid">account, environment, workspace</span></td><td><span class="term-badge badge-required">Required</span></td><td>Google Cloud resource container. Always lowercase. Don't use "workspace" — that's a Google Workspace term.</td></tr>
+          <tr><td><span class="term-use">region</span></td><td><span class="term-avoid">location, zone, area, datacenter</span></td><td><span class="term-badge badge-preferred">Preferred</span></td><td>Use "region" for multi-zone locations. Use "zone" only when referring to a specific zone.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- AVOID -->
+    <section class="doc-section" id="avoid">
+      <span class="section-eyebrow">Terminology</span>
+      <h2>Terms to avoid</h2>
+      <p>The following terms are prohibited or discouraged in Vertex Flow content. Flag these in editorial reviews.</p>
+      <div class="do-dont">
+        <div class="do-dont-col">
+          <span class="do-dont-label label-dont">Prohibited phrases</span>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">"Simply" or "just"</div><div class="do-dont-reason">Implies the task is easy — condescending if it isn't.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">"Please" in instructions</div><div class="do-dont-reason">Remove it. "Click <strong>Save</strong>" is more direct than "Please click Save."</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">"Utilize"</div><div class="do-dont-reason">Always replaceable with "use."</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">"In order to"</div><div class="do-dont-reason">Always replaceable with "to."</div></div></div>
+        </div>
+        <div class="do-dont-col">
+          <span class="do-dont-label label-dont">Avoid these patterns</span>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Passive voice in instructions</div><div class="do-dont-reason">"The pipeline can be configured" → "Configure the pipeline."</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Future tense in UI copy</div><div class="do-dont-reason">"The pipeline will start" → "The pipeline starts."</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Vague time references</div><div class="do-dont-reason">"Recently," "soon," "shortly" — use exact values or relative timestamps.</div></div></div>
+          <div class="do-dont-item"><div class="do-dot dot-dont">✕</div><div><div class="do-dont-text">Anthropomorphizing the product</div><div class="do-dont-reason">"Vertex Flow thinks…" or "Vertex Flow wants…" — avoid intent language.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- CAPITALIZATION -->
+    <section class="doc-section" id="capitalization">
+      <span class="section-eyebrow">Formatting</span>
+      <h2>Capitalization</h2>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Use sentence case for all headings and UI labels</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Use sentence case everywhere: headings, button labels, navigation items, and tab names. Capitalize only the first word and proper nouns.</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Correct</span><div class="do-dont-text" style="font-size:0.87rem;">Create a pipeline · Pipeline settings · View run history</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Incorrect</span><div class="do-dont-text" style="font-size:0.87rem;">Create A Pipeline · Pipeline Settings · View Run History</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Capitalize Google Cloud product names</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Capitalize official Google Cloud product and service names. Don't capitalize generic terms.</p>
+          <ul>
+            <li>✓ <strong>Vertex AI</strong>, <strong>BigQuery</strong>, <strong>Cloud Storage</strong>, <strong>Vertex Flow</strong></li>
+            <li>✓ "Store artifacts in <strong>Cloud Storage</strong>"</li>
+            <li>✕ "Store artifacts in cloud storage"</li>
+          </ul>
+        </div>
+      </div>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Bold UI elements when referenced in instructions</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>When you refer to a UI element the user needs to interact with, bold it — buttons, tabs, menu items, and field labels.</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Correct</span><div class="do-dont-text" style="font-size:0.87rem;">Click <strong>Deploy</strong>, then select your target region.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Incorrect</span><div class="do-dont-text" style="font-size:0.87rem;">Click Deploy, then select your target region.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUNCTUATION -->
+    <section class="doc-section" id="punctuation">
+      <span class="section-eyebrow">Formatting</span>
+      <h2>Punctuation</h2>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Use the Oxford comma</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Always use the Oxford comma in lists of three or more items.</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Correct</span><div class="do-dont-text" style="font-size:0.87rem;">Configure the source, transform, and output steps.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Incorrect</span><div class="do-dont-text" style="font-size:0.87rem;">Configure the source, transform and output steps.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Don't use terminal punctuation in UI labels</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Don't end button labels, tab names, or navigation items with periods. Do use periods in tooltips, helper text, and full-sentence descriptions.</p>
+          <ul style="margin-top:0.5rem;">
+            <li>✓ Button: <strong>Deploy pipeline</strong></li>
+            <li>✓ Helper text: "Enter a name for your pipeline. Names must be unique within a project."</li>
+            <li>✕ Button: <strong>Deploy pipeline.</strong></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- NUMBERS -->
+    <section class="doc-section" id="numbers">
+      <span class="section-eyebrow">Formatting</span>
+      <h2>Numbers and dates</h2>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Spell out numbers zero through nine</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>In running text, spell out zero through nine. Use numerals for 10 and above. Always use numerals in UI labels and technical contexts.</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Running text</span><div class="do-dont-text" style="font-size:0.87rem;">A pipeline can have up to five steps in the free tier and 50 in the paid tier.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ UI copy</span><div class="do-dont-text" style="font-size:0.87rem;">3 runs failed · Timeout: 5 min · Max retries: 3</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">Date and time formats</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <table class="term-table" style="margin-top:0.5rem;">
+            <thead><tr><th>Context</th><th>Format</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td>Documentation</td><td><span class="ic">Month D, YYYY</span></td><td>August 14, 2024</td></tr>
+              <tr><td>Recent UI timestamps</td><td>Relative</td><td>3 minutes ago · Just now</td></tr>
+              <tr><td>Older UI timestamps</td><td><span class="ic">Mon D, YYYY</span></td><td>Aug 14, 2024</td></tr>
+              <tr><td>Time values</td><td>24-hour UTC</td><td>14:32 UTC</td></tr>
+              <tr><td>Never use</td><td><span class="ic">MM/DD/YY</span></td><td>Ambiguous internationally</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCEDURES -->
+    <section class="doc-section" id="procedures">
+      <span class="section-eyebrow">Formatting</span>
+      <h2>Procedures and steps</h2>
+      <p>Write step-by-step instructions as numbered lists. Each step contains one action. Start each step with an imperative verb.</p>
+      <div class="format-rule">
+        <div class="format-rule-header"><span class="format-rule-title">One action per step</span><span class="term-badge badge-required">Required</span></div>
+        <div class="format-rule-body">
+          <p>Don't combine multiple actions in a single step. If the user needs to do two things, write two steps.</p>
+          <div class="do-dont" style="margin-top:0.75rem;">
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-do" style="margin-bottom:0.5rem;">✓ Correct</span><div class="do-dont-text" style="font-size:0.87rem;line-height:1.8;">1. Click <strong>Add step</strong>.<br />2. Select <strong>Data transform</strong> from the menu.</div></div>
+            <div class="do-dont-col" style="padding:1rem 1.25rem;"><span class="do-dont-label label-dont" style="margin-bottom:0.5rem;">✕ Incorrect</span><div class="do-dont-text" style="font-size:0.87rem;">1. Click <strong>Add step</strong> and select <strong>Data transform</strong> from the menu.</div></div>
+          </div>
+        </div>
+      </div>
+      <h3>Example procedure</h3>
+      <div class="procedure">
+        <div class="procedure-header">Example · Create and deploy a pipeline</div>
+        <div class="procedure-body">
+          <div class="procedure-step"><div class="step-num">1</div><div>In the Google Cloud console, go to <strong>Vertex Flow</strong>.</div></div>
+          <div class="procedure-step"><div class="step-num">2</div><div>Click <strong>Create pipeline</strong>.</div></div>
+          <div class="procedure-step"><div class="step-num">3</div><div>In the <strong>Name</strong> field, enter a name for your pipeline. Names must be 3–63 characters and contain only lowercase letters, numbers, and hyphens.</div></div>
+          <div class="procedure-step"><div class="step-num">4</div><div>Select a <strong>Region</strong> from the dropdown menu.</div></div>
+          <div class="procedure-step"><div class="step-num">5</div><div>Click <strong>Create</strong>. The pipeline editor opens.</div></div>
+          <div class="procedure-step"><div class="step-num">6</div><div>Add steps to your pipeline, then click <strong>Deploy</strong>.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALLOUTS -->
+    <section class="doc-section" id="callouts">
+      <span class="section-eyebrow">Formatting</span>
+      <h2>Notes and warnings</h2>
+      <p>Use callouts sparingly. Overusing them dilutes their impact. Follow the Google Cloud callout hierarchy.</p>
+      <table class="term-table" style="margin-bottom:1.5rem;">
+        <thead><tr><th>Type</th><th>When to use</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><span class="term-badge badge-required">Note</span></td><td>Supplementary information that's useful but not critical</td><td style="font-size:0.82rem;color:var(--text);">Pipeline names can't be changed after creation.</td></tr>
+          <tr><td><span class="term-badge" style="background:var(--amber-bg);color:var(--amber);border-color:rgba(212,168,83,0.2);">Caution</span></td><td>Information that may cause data loss or unexpected behavior if ignored</td><td style="font-size:0.82rem;color:var(--text);">Deleting a pipeline also deletes all associated artifacts.</td></tr>
+          <tr><td><span class="term-badge badge-avoid">Warning</span></td><td>Actions that may cause irreversible harm or security risk</td><td style="font-size:0.82rem;color:var(--text);">Don't share service account keys in public repositories.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout callout-note">
+        <div class="callout-inner"><span class="callout-type">Note</span><p>Pipeline names can't be changed after creation. If you need a different name, delete the pipeline and create a new one.</p></div>
+      </div>
+      <div class="callout callout-caution">
+        <div class="callout-inner"><span class="callout-type">Caution</span><p>Deleting a pipeline also deletes all associated artifacts and run history. This action can't be undone.</p></div>
+      </div>
+      <div class="callout callout-warning">
+        <div class="callout-inner"><span class="callout-type">Warning</span><p>Don't include service account keys in your pipeline configuration. Use Secret Manager to store and access credentials securely.</p></div>
+      </div>
+    </section>
+
+    <div class="doc-footer">
+      <div class="doc-footer-left">Written by Victor Chhoeun · Portfolio writing sample · Vertex Flow is a fictional Google Cloud product</div>
+      <div class="doc-footer-right"><a href="index.html">← Back to portfolio</a></div>
+    </div>
+  </main>
+
+  <script>
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>

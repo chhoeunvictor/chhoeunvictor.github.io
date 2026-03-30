@@ -545,44 +545,44 @@
 
     <div class="sidebar-section">
       <span class="sidebar-section-label">Getting Started</span>
-      <a class="sidebar-link active" onclick="scrollTo('overview')">Overview</a>
-      <a class="sidebar-link" onclick="scrollTo('authentication')">Authentication</a>
-      <a class="sidebar-link" onclick="scrollTo('errors')">Errors & status codes</a>
-      <a class="sidebar-link" onclick="scrollTo('rate-limits')">Rate limits</a>
+      <a class="sidebar-link active" onclick="scrollToSection('overview')">Overview</a>
+      <a class="sidebar-link" onclick="scrollToSection('authentication')">Authentication</a>
+      <a class="sidebar-link" onclick="scrollToSection('errors')">Errors & status codes</a>
+      <a class="sidebar-link" onclick="scrollToSection('rate-limits')">Rate limits</a>
     </div>
 
     <div class="sidebar-section">
       <span class="sidebar-section-label">Pages</span>
-      <a class="sidebar-link" onclick="scrollTo('pages')">
+      <a class="sidebar-link" onclick="scrollToSection('pages')">
         <span class="method-badge get">GET</span> List pages
       </a>
-      <a class="sidebar-link" onclick="scrollTo('pages')">
+      <a class="sidebar-link" onclick="scrollToSection('pages')">
         <span class="method-badge post">POST</span> Create page
       </a>
-      <a class="sidebar-link" onclick="scrollTo('pages')">
+      <a class="sidebar-link" onclick="scrollToSection('pages')">
         <span class="method-badge put">PUT</span> Update page
       </a>
-      <a class="sidebar-link" onclick="scrollTo('pages')">
+      <a class="sidebar-link" onclick="scrollToSection('pages')">
         <span class="method-badge del">DEL</span> Delete page
       </a>
     </div>
 
     <div class="sidebar-section">
       <span class="sidebar-section-label">Workspaces</span>
-      <a class="sidebar-link" onclick="scrollTo('workspaces')">
+      <a class="sidebar-link" onclick="scrollToSection('workspaces')">
         <span class="method-badge get">GET</span> Get workspace
       </a>
-      <a class="sidebar-link" onclick="scrollTo('workspaces')">
+      <a class="sidebar-link" onclick="scrollToSection('workspaces')">
         <span class="method-badge get">GET</span> List members
       </a>
     </div>
 
     <div class="sidebar-section">
       <span class="sidebar-section-label">Notifications</span>
-      <a class="sidebar-link" onclick="scrollTo('notifications')">
+      <a class="sidebar-link" onclick="scrollToSection('notifications')">
         <span class="method-badge post">POST</span> Send notification
       </a>
-      <a class="sidebar-link" onclick="scrollTo('notifications')">
+      <a class="sidebar-link" onclick="scrollToSection('notifications')">
         <span class="method-badge get">GET</span> List notifications
       </a>
     </div>
@@ -1108,7 +1108,7 @@
       document.getElementById(targetId).classList.add('active');
     }
 
-    function scrollTo(id) {
+    function scrollToSection(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
       document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
     }
